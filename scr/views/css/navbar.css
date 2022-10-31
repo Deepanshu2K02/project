@@ -1,9 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
-:root{
-    --pri-col : #dfe6e9;
-    --sec-col : #282D30;
-    --tri-col : #7EB3C7;
-}
+
+
 
 .bgc-light{
     background-color: var(--pri-col);
@@ -25,17 +21,19 @@ body{
     background-color:var(--pri-col);
 }
 
-*{
-    font-family: 'Roboto' , sans-serif;
-    text-decoration: none; text-transform: uppercase;
-    list-style: none;
+.navbar{
+    position: sticky;
+    top:0;
 }
 
 .nav-link{
     color: var(--pri-col);
 }
+.nav-link:hover{
+    color: var(--tri-col);
+}
 
-.logoutbtn{
+.navlogoutbtn{
     padding: 0;
     width: 7rem;
     border-radius: 3rem;

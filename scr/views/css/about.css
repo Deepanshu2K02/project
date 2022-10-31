@@ -1,0 +1,60 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+*{
+    
+    font-family: 'Roboto','sans-serif';
+    text-decoration: none; text-transform: uppercase;
+    list-style: none;
+}
+
+:root{
+    --pri-col : #dfe6e9;
+    --sec-col : #282D30;
+    --green : #04C383;
+    --blue : #0086D6;
+}
+
+.main-container{
+    background-color: var(--pri-col);
+}
+.notup{
+    text-transform: capitalize;
+}
+.abouttitle{
+    text-align: center;
+    color: var(--green);
+    font-size: 3rem;
+    padding: 1rem;
+}
+
+.aboutintro{
+    font-size: 1.2rem;
+}
+
+#about{
+    top: 10rem;
+    margin-bottom: 2rem;
+}
+
+.aboutserviceitem:hover{
+   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.serviceintrotitle{
+    color: var(--green);
+    font-size: 1.5rem;
+    text-align: center;
+}
+
+.serviceitemtitle{
+    color: var(--blue);
+    font-size: 1.1rem;
+}
+
+.aboutimg{
+    font-size: 10rem;
+    display: flex;
+    align-items: center;
+    font-family: cursive;
+    font-weight: 600;
+    color: var(--sec-col);
+}

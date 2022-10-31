@@ -130,37 +130,13 @@ const allurlformpath = async (path)=>{
 /***************************************   USER ACTIONS   ***********************************************************/
 
 app.get('/',(req,res,next)=>{
+    let user = auth.currentUser;
+    if(user){
     res.render('index.ejs');
-    // getDocs(colRef)
-    // .then((snapshot)=>{
-        //     let users = [];
-        //     snapshot.docs.forEach((doc)=>{
-            //         users.push({ ...doc.data() , id : doc.id })
-            //     })
-            //     console.log(users)
-            //     res.send(users);
-            //     res.end();
-            // }).catch(err=>{
-                //     res.send('Error 404');
-                // })
-                
-                // let q = query(colRef,orderBy('createddate'));
-                
-                // onSnapshot(q,colRef,(snapshot)=>{                                      //realtime data of collection
-                //     let users = [];
-                //     snapshot.docs.forEach((doc)=>{
-                    //         users.push({ ...doc.data() , id : doc.id })
-                    //     })
-                    //    res.send(users);
-                    // })
-                    
-    // const docRef = doc(db,'users','R7j69UQi8laOIURomgvS');
-
-    // onSnapshot(docRef,(doc)=>{                                          //realtime data of document
-    //     console.log(doc.data(),doc.id);
-    // })
-    
-    // res.end();
+    }
+    else{
+        res.redirect('/loginpage');
+    }
 });
 
 app.get('/loginpage',(req,res)=>{
