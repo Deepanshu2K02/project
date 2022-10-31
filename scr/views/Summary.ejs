@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to Text Converter</title>
+    <script src="https://kit.fontawesome.com/57a3e51741.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" href="/css/index.css"> 
+</head>
+<body>
+    <%- include('partials/nav.ejs') %>
+
+    <form action="/summary" method="post">
+        <div class="mb-3">
+            <label for="exampleFormControlTextarea1" class="form-label">Enter Paragraph</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" name="para"></textarea>
+          </div>
+        <button type="submit">Summarise</button>
+    </form>
+
+
+    <div class="container">
+        <%= text %> 
+      </div>
+
+    <form action="/savesummary" method="post">
+        <input type="text" name="title" placeholder="Summary Title">
+        <input type="text" name="summary" value="<%= text %>" required>
+         <button type="submit">Save this Summary</button>
+    </form>
+
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
+<script src="./js/index.js"></script>
+</body>
+</html>
+
+
+
+
