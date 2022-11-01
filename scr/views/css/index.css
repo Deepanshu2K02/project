@@ -5,6 +5,15 @@
     text-decoration: none; text-transform: uppercase;
     list-style: none;
 }
+.example::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .example {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
 
 :root{
     --pri-col : #dfe6e9;
@@ -12,3 +21,4 @@
     --green : #04C383;
     --blue : #0086D6;
 }
+

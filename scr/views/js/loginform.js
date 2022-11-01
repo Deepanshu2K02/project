@@ -1,11 +1,8 @@
-let pass1 = document.querySelector('#spassword');
-        let pass2 = document.querySelector('#spasswordagain');
-
-        function checkmatch(){
-            if(pass1.value===pass2.value){
-                 document.querySelector('#buton').innerHTML = ''
-            }
-            else{
-                document.querySelector('#buton').innerHTML = '<button class="btn-primary btn-sm" type="submit">Login In</button>'
-            }
-        }
+let tosignuppage = document.querySelector('#tosignuppage');
+let tologinpage = document.querySelector('#tologinpage');
+let signupBox = document.querySelector('.signupBox');
+let loginBox = document.querySelector('.loginBox');
+function changepage(){
+    signupBox.classList.toggle("hide");
+    loginBox.classList.toggle("hide");
+}

@@ -192,7 +192,6 @@ app.post('/signup',(req,res)=>{
     
     createUserWithEmailAndPassword(auth,email,password)
     .then((cred)=>{
-        // console.log(cred.user);
         res.redirect('/');
     }).catch((err)=>{
         console.log(err.message);
@@ -221,13 +220,12 @@ app.post('/login',(req,res)=>{
 app.get('/logout',(req,res)=>{
     signOut(auth).then(()=>{
         console.log('Logged Out');
-        res.redirect('/');
+        res.redirect('/loginpage');
     }).catch((err)=>{
         console.log(err);
         res.end();
     })
 })
-
 
 /*********************************************************************************************************************/
 
@@ -250,102 +248,6 @@ app.post('/updateuser',(req,res)=>{
         console.log(error);
       });
 })
-
-
-// app.post('/adduser',(req,res)=>{
-    
-//     try{
-//         let email = req.body.email;
-//         let name =  req.body.name;
-//         let password = req.body.password;
-//         // addDoc(colRef,{
-//         //     emailid : email  ,                           // adding user
-//         //     name : name ,
-//         //     password : password,
-//         //     createddate : serverTimestamp()
-//         // })
-
-//         const docRef = doc(db,'users','R7j69UQi8laOIURomgvS');
-
-//         updateDoc(docRef,{
-//             name : name,
-//             emailid : email,
-//         })
-
-//     }
-//     catch{
-//         res.send('Pretty good error here');
-//     }
-//     res.end();
-// });
-
-// app.post('/deleteuser',(req,res,next)=>{
-//     try{
-//        const docRef = doc(db,'users',req.body.id);
-
-//        deleteDoc(docRef);
-//     }
-//     catch{
-//         res.send('Pretty good error here');
-//     }
-//    res.end();
-// });
-
-// app.post('/googauth',async(req,res)=>{
-//     console.log('reached');
-//     const provider = new GoogleAuthProvider();
-//     provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
-//     auth.languageCode = auth.useDeviceLanguage();
-
-//     signInWithPopup(auth, provider)
-//   .then((result) => {
-//     // This gives you a Google Access Token. You can use it to access the Google API.
-//     const credential = GoogleAuthProvider.credentialFromResult(result);
-//     const token = credential.accessToken;
-//     // The signed-in user info.
-//     const user = result.user;
-//     console.log(user);
-//     // ...
-//   }).catch((error) => {
-//     // Handle Errors here.
-//     const errorCode = error.code;
-//     const errorMessage = error.message;
-//     // The email of the user's account used.
-//     console.log(errorMessage);
-//     const email = error.customData.email;
-//     // The AuthCredential type that was used.
-//     const credential = GoogleAuthProvider.credentialFromError(error);
-//     // ...
-//   });
-
-// });
-
-// app.post('/upload', imageUpload.single('imgfile'), (req, res) => {
-//     let or = fs.readFileSync(`images/${req.file.originalname}`, 'base64', function(err, data){
-//         if(err){
-//             res.end(err);             // check for future
-//         }
-//         else{
-//         return data;
-//         }
-//     });
-
-//     const metadata = {
-//         name : req.file.originalname,
-//         path : req.file.path,
-//         size : req.file.size,
-//         contentType: 'image/jpeg',
-//       };
-
-//     const storageRef = ref(storage, `images/${req.file.originalname}`);
-//     uploadString(storageRef, or, 'base64',metadata).then((snapshot) => {
-//         fs.unlink(`images/${req.file.originalname}`,()=>{
-//             res.end();
-//         });
-//      });
-// }, (error, req, res, next) => {
-//     res.status(400).send({ error: error.message })
-// });
 
 const savetostore = (file,path)=>{
     const storageRef = ref(storage, path);
@@ -412,7 +314,7 @@ const savetxt = (files,functionid)=>{
 
 app.get('/imgtotxt',(req,res)=>{
     res.render('imgtotxt.ejs',{
-        gottext :'No Text'
+        gottext : null
     });
 });
 

@@ -1,18 +1,186 @@
-.container{
-    margin: auto;
-    width: 50%;
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+*{
+    
+    font-family: 'Roboto','sans-serif';
+    text-decoration: none; text-transform: uppercase;
+    list-style: none;
 }
 
-.container .mb-3,.row,.col-sm-10{
+:root{
+    --pri-col : #dfe6e9;
+    --sec-col : #282D30;
+    --green : #04C383;
+    --blue : #0086D6;
+}
+
+.btn-cdark{
+    background-color: var(--sec-col);
+    color: var(--pri-col);
+ }
+ 
+ .btn-cdark:hover{
+     background-color: var(--green);
+     color: var(--pri-col);
+ }
+
+.example::-webkit-scrollbar {
+    display: none;
+  }
+  
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .example {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+
+body{margin: 0; padding: 0;
+    background-color: var(--pri-col);
+    height: 100vh;
+ 
+}
+
+
+#particles-js{height: 100%}
+
+
+.loginBox , .signupBox{
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%,-50%);
+    width: 350px; min-height: 200px; 
+    background: white; 
+    border-radius: 10px; padding: 40px;
+    box-sizing: border-box;
+    box-shadow: 0 5px 10px rgba(0,0,0, 0.2); 
+    transition: 1s ease-in-out;
+}
+
+
+.user{
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 20px
+    }
+
+
+h3{margin: 0;
+    padding: 0 0 20px;
+    color: var(--sec-col);
+    text-align: center
+}
+
+
+.loginBox input{
     width: 100%;
-    height: 100%;
-    font-size: 3rem;
+    margin-bottom: 20px
 }
 
-.loginbtn{
+.signupBox input{
     width: 100%;
+    margin-bottom: 20px
 }
 
-.loginbtn .btn-sm{
-    margin: auto;
+
+.loginBox input[type="email"], .loginBox input[type="password"]{
+    border: none;
+    border-bottom: 2px solid #262626;
+    outline: none; height: 40px;
+    color: var(--blue);
+    background: transparent;
+    font-size: 1.3rem;
+    padding-left: 20px; box-sizing: border-box
+}
+
+.signupBox input[type="email"], .signupBox input[type="password"]{
+    border: none;
+    border-bottom: 2px solid #262626;
+    outline: none; height: 40px;
+    color: var(--blue);
+    background: transparent;
+    font-size: 1.3rem;
+    padding-left: 20px; box-sizing: border-box
+}
+
+
+.loginBox input[type="email"]:hover, .loginBox input[type="password"]:hover{
+    color: var(--sec-col); 
+    }
+
+    .signupBox input[type="email"]:hover, .signupBox input[type="password"]:hover{
+        color: var(--sec-col); 
+        }
+  
+    
+.loginBox input[type="email"]:focus, .loginBox input[type="password"]:focus{
+    font-size: 2rem;
+    text-transform: none;
+    border-bottom: 2px solid var(--blue)
+}
+
+.signupBox input[type="email"]:focus, .signupBox input[type="password"]:focus{
+    font-size: 2rem;
+    text-transform: none;
+    border-bottom: 2px solid var(--blue)
+}
+
+
+.inputBox{position: relative}
+
+
+.inputBox span{
+    position: absolute;  top: 10px;
+    color: #262626
+}
+
+ 
+
+.loginBox a{
+    color: var(--blue); font-size: 14px;
+    font-weight: bold;  text-decoration: none;
+    text-align: center;  display: block
+}
+
+.signupBox a{
+    color: var(--blue); font-size: 14px;
+    font-weight: bold;  text-decoration: none;
+    text-align: center;  display: block
+}
+
+a:hover{
+    color: #00d5ff
+}
+
+#tosignuppage{
+    border: none;  outline: none;
+     margin-top: 1rem;
+        height: 40px;  font-size: 2rem;
+        color: var(--sec-col);
+        cursor: pointer
+}
+
+#tosignuppage:hover{
+    color: var(--blue);
+}
+
+#tologinpage{
+    border: none;  outline: none;
+     margin-top: 1rem;
+        height: 40px;  font-size: 2rem;
+        color: var(--sec-col);
+        cursor: pointer
+}
+
+#tologinpage:hover{
+    color: var(--blue);
+}
+
+.warning{
+    font-size: 1rem;
+    text-align: center;
+    color: red;
+}
+
+.hide{
+    visibility: hidden;
+    display: none;
 }

@@ -13,10 +13,67 @@
     <link rel="stylesheet" href="/css/login.css"> 
   </head>
 <body>
-   <%= error %> 
-   
-  <%- include('partials/loginform.ejs') %> 
-  <%- include('partials/signup.ejs') %> 
+    
+
+  <div class="loginBox"> 
+    <img class="user" src="https://i.ibb.co/yVGxFPR/2.png" height="100px" width="100px">
+
+        <h3>Sign in here</h3>
+        <div class="warning">
+          <% if(error === "All is perfect"){%> 
+          <% }else{%>
+            Wrong Creditionals
+           <% } %> 
+        </div>
+
+        <form action="/login" method="post" >
+              
+            <div class="inputBox"> 
+              <input id="email" type="email" name="email" placeholder="Email Id" required> 
+              
+              <input id="pass" type="password" name="password" placeholder="Password" required> 
+              
+            </div> 
+            <button type="submit" class="btn btn-cdark w-100 my-2">Login</button>
+
+            <!-- <input type="submit" class="btn-cdark" name="" value="Login"> -->
+        </form> 
+        <!-- <a href="#">Forget Password<br> </a> -->
+        <div class="text-center m2">
+          Don't Have an Account ?
+            <a id="tosignuppage" onclick="changepage()">Sign-up</a>
+        </div>
+        
+    </div>
+
+
+    <div class="signupBox hide" > 
+      <img class="user" src="https://i.ibb.co/yVGxFPR/2.png" height="100px" width="100px">
+  
+          <h3>Create Account</h3>
+  
+          <form action="/signup" method="post" >
+                
+              <div class="inputBox"> 
+                <input id="semail" type="email" name="semail" placeholder="Email Id" required> 
+                
+                <input id="spass" type="password" name="spassword" placeholder="Password" required> 
+                <input id="cpass" type="password" name="cpassword" placeholder="Confirm Password" onchange="check()" required> 
+                
+              </div> 
+              <div class="ifsub row-12">
+            <button type="submit" class="btn btn-cdark my-2 w-100">Sign up</button>
+
+              <!-- <input type="submit" class="" name="" value="Sign Up"> -->
+              </div>
+          </form> 
+          <!-- <a href="#">Forget Password<br> </a> -->
+          <div class="text-center m-2">
+            Already Have an Account ?
+              <a id="tologinpage" onclick="changepage()">Log In</a>
+          </div>
+          
+      </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
