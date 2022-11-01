@@ -141,7 +141,7 @@ app.get('/userpage',async (req,res)=>{
     const auth = getAuth();
     const user = auth.currentUser;
     if (user !== null) {
-
+    console.log(user.displayName);
     
     let imgtotxturls = await allurlformpath(`users/${user.uid}/imgtotxt`);
     console.log(imgtotxturls);
@@ -170,14 +170,27 @@ app.get('/error',(req,res)=>{
 })
 
 app.post('/signup',(req,res)=>{
+    console.log(__dirname)
     let email = req.body.semail;
+    let name = req.body.sname;
     let password = req.body.spassword;
     
     createUserWithEmailAndPassword(auth,email,password)
     .then((cred)=>{
+
+    updateProfile(auth.currentUser, {
+        displayName: name,
+      }).then(() => {
+        res.render('User.ejs',{
+            user : auth.currentUser,
+        });
+
+      }).catch((error) => {
+        console.log(error);
         res.redirect('/');
+      });
+
     }).catch((err)=>{
-        console.log(err.message);
         res.render('LoginPage',{
             code: 'signup',
             error : err.message
@@ -202,7 +215,6 @@ app.post('/login',(req,res)=>{
 
 app.get('/logout',(req,res)=>{
     signOut(auth).then(()=>{
-        console.log('Logged Out');
         res.redirect('/loginpage');
     }).catch((err)=>{
         console.log(err);
@@ -219,7 +231,7 @@ app.post('/updateuser',(req,res)=>{
 
     if(!name) name = auth.currentUser.displayName;
     if(!photoUrl) photoUrl = auth.currentUser.photoURL;
-
+   
     updateProfile(auth.currentUser, {
         displayName: name, photoURL: photoUrl
       }).then(() => {
@@ -533,6 +545,11 @@ app.get('/QnA',(req,res)=>{
 });
 
 app.post('/QnA',(request,response)=>{
+
+   try {
+    
+   
+
     let que = request.body.que;
     
     const options = {
@@ -557,6 +574,7 @@ app.post('/QnA',(request,response)=>{
     
         res.on("end", async function () {
             const body = Buffer.concat(chunks);
+            console.log(body);
             let ans = await JSON.parse(body);
             
             if(ans != null){
@@ -576,6 +594,10 @@ app.post('/QnA',(request,response)=>{
         });
     });
     req.end();
+
+} catch (error) {
+    res.end(error.message);
+}
 });
 
 app.post('/saveans',(req,res)=>{

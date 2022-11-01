@@ -22,6 +22,7 @@ body{
     position: sticky;
     top:0;
     box-shadow: 0 5px 10px rgba(0,0,0,0.5);
+    z-index: 1000;
 }
 
 .navbar-brand{
@@ -40,12 +41,12 @@ body{
     color: var(--pri-col);
 }
 
-.navlogoutbtn{
+/* .navlogoutbtn{
     padding: 0;
     width: 7rem;
     border-radius: 3rem;
     font-size: 1rem;
-}
+} */
 
 .btn-cdark{
     border-radius: 0.375rem;

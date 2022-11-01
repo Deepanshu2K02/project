@@ -1,0 +1,52 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+*{
+  
+  font-family: 'Roboto','sans-serif';
+  text-decoration: none; text-transform: uppercase;
+  list-style: none;
+}
+footer a{
+    text-decoration: none;
+    color: var(--pri-col);
+}
+footer i{
+  font-size: 1.2rem;
+}
+:root{
+  --pri-col : #dfe6e9;
+  --sec-col : #282D30;
+  --green : #04C383;
+  --blue : #0086D6;
+}
+.textnone{
+    text-transform: none;
+}
+.bg-cdark{
+    background-color: var(--sec-col);
+    color: var(--pri-col);
+}
+
+.bg-clight{
+    background-color: var(--pri-col);
+    color: var(--sec-col);
+}
+
+.hide{
+  display: none;
+}
+.example::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.example {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+footer{
+    bottom: 0;
+    width: 100%;
+}

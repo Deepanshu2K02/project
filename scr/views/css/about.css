@@ -25,6 +25,7 @@
 
 .main-container{
     background-color: var(--pri-col);
+    line-height: 1.1;
 }
 .notup{
     text-transform: capitalize;
@@ -34,10 +35,16 @@
     color: var(--green);
     font-size: 3rem;
     padding: 1rem;
+    margin-bottom: 1rem;
 }
 
 .aboutintro{
     font-size: 1.2rem;
+    margin-bottom: 1rem;
+}
+.aboutintro:hover{
+   box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+   cursor: pointer;
 }
 
 #about{
@@ -52,21 +59,18 @@
 
 .serviceintrotitle{
     color: var(--green);
-    font-size: 1.5rem;
+    font-size: 1.8rem;
     text-align: center;
 }
 
 .serviceitemtitle{
     color: var(--blue);
-    font-size: 1.1rem;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
 }
 
-.aboutimg{
-    font-size: 10rem;
-    display: flex;
-    align-items: center;
-    font-family: cursive;
-    font-weight: 600;
-    color: var(--sec-col);
-    cursor: pointer;
+.serviceiteminfo{
+    margin-bottom: 1rem;
 }
+
+

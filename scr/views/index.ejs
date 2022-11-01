@@ -11,51 +11,15 @@
 </head>
 <body class="bgc-light">
   <%- include('partials/nav.ejs') %>
+  <div class="container-fluid index-body">
 
   <%-include('partials/about.ejs') %>
-    <div class="container">
-            <a href="/imgtotxt" class="btn btn-cdark">get txt from img</a>
-      
-   </div>
 
-   
-   <div class="container">
+  <%- include('partials/services.ejs') %> 
 
-        <a href="/translate" class="btn btn-cdark">Translate Text</a>
-        
-    </div>
+  </div>
 
-    <div class="container">
-
-        <a href="/summary" class="btn btn-cdark">Summarise Paragraph</a>
-        
-    </div>
-
-    <div class="container">
-
-        <a href="/QnA" class="btn btn-cdark">Questions Answers</a>
-        
-    </div>
-
-    <div class="container">
-        <a href="/txtTospeech" class="btn btn-cdark">Text To Speech Converter</a>
-    </div>
-    
-<!--     
-
-        
-    <div class="container">
-        <button class="btn-primary">
-            <a href="/QnA">Get Answer to Simple Questions</a>
-        </button>
-        </div> -->
-
-    <!-- <div class="container">
-        <button class="btn-primary">
-            <a href="/txtTospeech">Convert Text To Speech (Only English)</a>
-        </button>
-        </div> -->
-    <%- include('partials/footer.ejs') %> 
+ <%- include('partials/footer.ejs') %> 
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>

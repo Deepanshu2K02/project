@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/css/login.css"> 
   </head>
 <body>
-    
+    <div class="container-fluid">
   <% if(code === 'login'){ %> 
     <div class="loginBox" > 
       <% } else { %> 
@@ -61,15 +61,15 @@
           <form action="/signup" method="post" >
                 
               <div class="inputBox"> 
+                <input id="sname" type="text" name="sname" placeholder="Name"  required> 
                 <input id="semail" type="email" name="semail" placeholder="Email Id" required> 
-                
                 <input id="spass" type="password" name="spassword" placeholder="Password" required> 
-                <input id="cpass" type="password" name="cpassword" placeholder="Confirm Password" onchange="check()" required> 
                 
               </div> 
               <div class="ifsub row-12">
-            <button type="submit" class="btn btn-cdark my-2 w-100">Sign up</button>
-
+                <button type="submit" class="btn btn-cdark my-2 w-100">Sign up</button>
+                
+                
               <!-- <input type="submit" class="" name="" value="Sign Up"> -->
               </div>
           </form> 
@@ -80,8 +80,7 @@
           </div>
           
       </div>
-
-      <%- include('partials/footer.ejs') %> 
+    </div>
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>

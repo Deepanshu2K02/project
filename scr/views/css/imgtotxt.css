@@ -59,3 +59,7 @@
     background-color: var(--green);
     color: var(--pri-col);
 }
+
+.container-main{
+    min-height: 82vh;
+}
