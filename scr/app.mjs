@@ -107,29 +107,12 @@ const allurlformpath = async (path)=>{
 
 }
 
-// const allfolderpathfromfolder = async (path)=>{
-//     const listRef = ref(storage, path);
-
-//     try{
-//         let response = await listAll(listRef);
-
-//         for (const item of response.prefixes) {
-//             console.log(item);
-//         }
-
-//         return [];
-//     }
-//    catch(error){
-//     console.log(error);
-//     return ['error'];
-//    }
-// }
-
 
 
 /***************************************   USER ACTIONS   ***********************************************************/
 
 app.get('/',(req,res,next)=>{
+
     let user = auth.currentUser;
     if(user){
     res.render('index.ejs');
@@ -146,8 +129,8 @@ app.get('/loginpage',(req,res)=>{
     }
     else{
         res.render('LoginPage.ejs',{
-            code : '',
-            error : 'All is perfect'
+            code : 'login',
+            error : ''
         });
     }
     
@@ -196,7 +179,7 @@ app.post('/signup',(req,res)=>{
     }).catch((err)=>{
         console.log(err.message);
         res.render('LoginPage',{
-            code: '',
+            code: 'signup',
             error : err.message
         })
     })
@@ -211,7 +194,7 @@ app.post('/login',(req,res)=>{
         res.redirect('/');
     }).catch((err)=>{
         res.render('LoginPage',{
-            code: '',
+            code: 'login',
             error : err.message
         })
     })
@@ -395,9 +378,8 @@ app.post('/downloadimgtotxt',(req,res)=>{
 
 app.get('/translate',(req,res)=>{
     res.render('TranslatePage.ejs',{
-        translateheading:' ',
-        translatedtext :'',
-        orignaltext:''
+        translatedtext :null,
+        orignaltext:null
     });
 });
 
@@ -431,7 +413,6 @@ app.post('/translate',(request,response)=>{
             const translatedtext = JSON.parse(body)[0].translations[0].text;
              
             response.render('TranslatePage.ejs',{
-                translateheading:'Your Translated Text :',
                 translatedtext :translatedtext,
                 orignaltext : text
             });
@@ -450,7 +431,7 @@ app.post('/savetranslation',(req,res)=>{
         let orignaltext = req.body.orignaltext;
         let translatedtext = req.body.translatedtext;
 
-        orignaltext = orignaltext.concat('\n\n\n',translatedtext);
+        orignaltext = orignaltext.concat('\n',translatedtext);
         let title = req.body.title;
         savetxt({
                 orignaltext : orignaltext , 

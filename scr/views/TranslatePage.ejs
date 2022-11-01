@@ -7,38 +7,73 @@
     <title>Image to Text Converter</title>
     <script src="https://kit.fontawesome.com/57a3e51741.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <!-- <link rel="stylesheet" href="/css/TanslatePage.css">  -->
+    <link rel="stylesheet" href="./css/TranslatePage.css">
+    <link rel="stylesheet" href="./css/index.css">
+    <link rel="stylesheet" href="./css/navbar.css">
 </head>
 <body>
     <%- include('partials/nav.ejs') %>
 
-    <form action="/translate" method="post">
-        <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Enter Your Text Here</label>
+
+    <div class="container col-12 my-2">
+      
+      <div class="title row-1 my-3">Translator</div>
+      <div class ="info row-1 my-4">Translate given text from english to various languages</div>
+
+      <div class="row-4 my-3">
+          <form action="/translate" method="post">
+            <label for="exampleFormControlTextarea1 row" class="form-label blue">Enter Your Text Here</label>
+          <div class="input-group mb-3 row">
+            <div class="input-area my-2 col-12">
             <textarea class="form-control" id="gettext" rows="3" name="text" required></textarea>
           </div>
+            <div class="options col-12">
+            <select class="form-select" aria-label="Default select example" name="lang" required>
+              <option selected >Select Language</option>
+              <option value="hi">Hindi</option>
+              <option value="ja">Japanese</option>
+              <option value="fr">French</option>
+              <option value="es">Spanish</option>
+              <option value="de">German</option>
+              <option value="ar">Arabic</option>
+              <option value="ga">Irish</option>
+              <option value="bn">Bengali</option>
+            </select>
+          </div>
+            <button type="submit" class="btn btn-cdark w-25 my-2 m-auto">Translate</button>
+          </div>
+          </form>
+      </div>
+
+      <% if(translatedtext != null){ %> 
+      <div class="row-6">
         
-          <select class="form-select" aria-label="Default select example" name="lang" required>
-            <option selected >Select Language</option>
-            <option value="hi">Hindi</option>
-            <option value="ja">Japanese</option>
-            <option value="es">Spanish</option>
-          </select>
+         
+        <div id="gettext" class="printtext container my-3">
+          <p><%= orignaltext %></p>
+          <br>
+          <p><%= translatedtext %> </p>
+        </div>
+        
+        <!-- dont change id -->
+        <form action="/savetranslation" method="post">
+            <div class="savefrom row">
+            <div class="col">
+            <input class="form-control " id="imgtotxttexttitle" name="title"  type="text" placeholder="File Name" required>
+            <input type="text" name="orignaltext" id="saveorignal" value="<%= orignaltext %>" required style="display: none ;">
+            <input type="text" name="translatedtext" id="savetranslated" value="<%= translatedtext %>" required style="display: none ;">
+            </div>
+            <div class="col">
+            <button class="btn btn-cdark" type="submit ">Save Translation in Profile</button>
+            </div>
+        </div>
+           </form>
 
-        <button type="submit" >Translate</button>
-      </form>
-      
-      <form action="/savetranslation" method="post">
-        <input type="text" name="title" placeholder="File Name" required>
-        <input type="text" name="orignaltext" id="saveorignal" value="<%= orignaltext %>" required style="display: none ;">
-        <input type="text" name="translatedtext" id="savetranslated" value="<%= translatedtext %>" required style="display: none ;">
-        <button type="submit" >Save Translation</button>
-    </form>
+        
+      </div>
+      <% } %> 
+  </div>
 
-    <div class="container">
-        <h1><%= translateheading %></h1>
-        <p><%= translatedtext %> </p>
-    </div>
 
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>

@@ -24,11 +24,20 @@ body{
     box-shadow: 0 5px 10px rgba(0,0,0,0.5);
 }
 
+.navbar-brand{
+    font-size: 2rem;
+    font-weight: 6s00;
+}
+
+.navbar-brand:hover{
+    color: var(--blue);
+}
+
 .nav-link{
     color: var(--pri-col);
 }
 .nav-link:hover{
-    color: var(--tri-col);
+    color: var(--blue);
 }
 
 .navlogoutbtn{
@@ -36,4 +45,21 @@ body{
     width: 7rem;
     border-radius: 3rem;
     font-size: 1rem;
+}
+
+.btn-cdark{
+    background-color: var(--sec-col);
+    color: var(--pri-col);
+ }
+ 
+ .btn-cdark:hover{
+     background-color: var(--green);
+     color: var(--pri-col);
+ }
+
+ .navlogoutbtn:hover{
+    background-color: red;
+}
+.navlogoutbtn:hover .nav-link{
+    color:  #dfe6e9;
 }

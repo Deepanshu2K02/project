@@ -5,6 +5,10 @@
     text-decoration: none; text-transform: uppercase;
     list-style: none;
 }
+
+a{
+  text-decoration: none;
+}
 .example::-webkit-scrollbar {
     display: none;
   }
@@ -22,3 +26,12 @@
     --blue : #0086D6;
 }
 
+.btn-cdark{
+  background-color: var(--sec-col);
+  color: var(--pri-col);
+}
+
+.btn-cdark:hover{
+   background-color: var(--green);
+   color: var(--pri-col);
+}

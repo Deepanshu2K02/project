@@ -14,8 +14,11 @@
   </head>
 <body>
     
-
-  <div class="loginBox"> 
+  <% if(code === 'login'){ %> 
+    <div class="loginBox" > 
+      <% } else { %> 
+    <div class="login hide" > 
+      <% } %> 
     <img class="user" src="https://i.ibb.co/yVGxFPR/2.png" height="100px" width="100px">
 
         <h3>Sign in here</h3>
@@ -46,8 +49,11 @@
         
     </div>
 
-
+    <% if(code === 'signup'){ %> 
+    <div class="signupBox" > 
+      <% } else { %> 
     <div class="signupBox hide" > 
+      <% } %> 
       <img class="user" src="https://i.ibb.co/yVGxFPR/2.png" height="100px" width="100px">
   
           <h3>Create Account</h3>

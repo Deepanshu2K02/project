@@ -15,6 +15,7 @@
     "fetch-node": "^0.0.1",
     "firebase": "^9.13.0",
     "http": "^0.0.1-security",
+    "iso-639-1": "^2.1.15",
     "multer": "^1.4.5-lts.1",
     "node-fetch": "^2.6.1",
     "nodemon": "^2.0.20",
