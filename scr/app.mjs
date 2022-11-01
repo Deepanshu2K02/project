@@ -431,7 +431,7 @@ app.post('/savetranslation',(req,res)=>{
         let orignaltext = req.body.orignaltext;
         let translatedtext = req.body.translatedtext;
 
-        orignaltext = orignaltext.concat('\n',translatedtext);
+        orignaltext = orignaltext + '\n\n\n' + translatedtext;
         let title = req.body.title;
         savetxt({
                 orignaltext : orignaltext , 
@@ -452,7 +452,7 @@ app.post('/savetranslation',(req,res)=>{
 
 app.get('/summary' , (req,res)=>{
     res.render('Summary.ejs', {
-        text : 'No Summary here'
+        text : null
     })
 });
 
@@ -510,7 +510,7 @@ app.post('/savesummary',(req,res)=>{
     if(user){
         savetxt(file,'summary');
         res.render('summary.ejs',{
-            text : summary
+            text : null
         })
     }
     else{
@@ -527,8 +527,9 @@ app.post('/savesummary',(req,res)=>{
 app.get('/QnA',(req,res)=>{
     res.render('QnA.ejs',{
         que : '',
-        ans : []
-    })
+        ans : null,
+        saved : false
+    });
 });
 
 app.post('/QnA',(request,response)=>{
@@ -540,7 +541,7 @@ app.post('/QnA',(request,response)=>{
         "port": null,
         "path": `/question-answer?question=${encodeURIComponent(que)}`,
         "headers": {
-            "X-RapidAPI-Key": "5922605310msh98c3321e6c15dd4p1af3f5jsn309d0d0cdf97",
+            "X-RapidAPI-Key": "785c7cec95mshb0e94aab5f692c6p113ea9jsna35a7d1beee5",
             "X-RapidAPI-Host": "question-answer.p.rapidapi.com",
             "useQueryString": true
         }
@@ -554,14 +555,24 @@ app.post('/QnA',(request,response)=>{
             chunks.push(chunk);
         });
     
-        res.on("end", function () {
+        res.on("end", async function () {
             const body = Buffer.concat(chunks);
-            let ans = JSON.parse(body);
-            console.log(ans);
+            let ans = await JSON.parse(body);
+            
+            if(ans != null){
+    
             response.render('QnA.ejs',{
                 ans : ans,
-                que : que
-            });
+                que : que ,
+                saved : false
+            });}else{
+                response.render('QnA.ejs',{
+                    ans : null ,
+                    que : que ,
+                    saved : false
+                    
+                })
+            }
         });
     });
     req.end();
@@ -578,8 +589,9 @@ app.post('/saveans',(req,res)=>{
         
          savetxt({que : que ,ans : ans},'QnA');
          res.render('QnA.ejs',{
-            que : '',
-            ans : []
+            que : que,
+            ans : null,
+            saved : true
          })
     }
     else{
@@ -594,7 +606,7 @@ app.post('/saveans',(req,res)=>{
 
 app.get('/txtTospeech',(req,res)=>{
     res.render('TxtToSpeech.ejs',{
-        link : '#'
+        link : null,
     });
 });
 
@@ -628,7 +640,8 @@ const req = http.request(options, function (res) {
 	});
 
 	res.on("end", function () {
-		const body = Buffer.concat(chunks);
+        try {
+            const body = Buffer.concat(chunks);
         let obj = JSON.parse(body);
         if(obj.status){
         response.render('TxtToSpeech',{
@@ -637,11 +650,15 @@ const req = http.request(options, function (res) {
 		else{
             response.redirect('/error');
         }
+        } catch (error) {
+            redirect('/error')
+        }
+		
 	});
 });
 
 req.write(qs.stringify({
-  voice_code: 'en-US-2',
+  voice_code: voicecode,
   text: request.body.text,
   speed: '1.00',
   pitch: '1.00',

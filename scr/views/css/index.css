@@ -1,37 +1,79 @@
+
+
 @import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
 *{
-    
-    font-family: 'Roboto','sans-serif';
-    text-decoration: none; text-transform: uppercase;
-    list-style: none;
-}
-
-a{
-  text-decoration: none;
-}
-.example::-webkit-scrollbar {
-    display: none;
-  }
   
-  /* Hide scrollbar for IE, Edge and Firefox */
-  .example {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-  }
+  font-family: 'Roboto','sans-serif';
+  text-decoration: none; text-transform: uppercase;
+  list-style: none;
+}
 
 :root{
-    --pri-col : #dfe6e9;
-    --sec-col : #282D30;
-    --green : #04C383;
-    --blue : #0086D6;
+  --pri-col : #dfe6e9;
+  --sec-col : #282D30;
+  --green : #04C383;
+  --blue : #0086D6;
+}
+
+.hide{
+  display: none;
+}
+.example::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.example {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.title{
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--blue);
+}
+
+.info{
+  text-align: center;
+  font-size: 1.5rem;
+}
+.blue{
+  color: var(--blue);
+}
+
+.printtext{
+  text-transform: none;
+  background-color: whitesmoke;
+  border-radius: 1rem;
+  padding: 2rem;
+}
+
+.input-group-text{
+  color: var(--blue);
+}
+
+.form-label{
+  font-size: 1.2rem;
 }
 
 .btn-cdark{
-  background-color: var(--sec-col);
-  color: var(--pri-col);
+ background-color: var(--sec-col);
+ color: var(--pri-col);
+ border-radius: 0.375rem;
 }
 
 .btn-cdark:hover{
-   background-color: var(--green);
-   color: var(--pri-col);
+  background-color: var(--green);
+  color: var(--pri-col);
 }
+
+input{
+  text-transform: none;
+}
+
+input:focus{
+  text-transform: none;
+}
+

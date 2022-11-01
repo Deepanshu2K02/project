@@ -1,4 +1,6 @@
+let successmsg = document.querySelector('.successmsg');
 
-let gotque = document.querySelector('#gotque')
-let que = document.querySelector('#que')
-
+function hidit(){
+    console.log('clicked');
+    successmsg.classList.toggle('hide')
+}

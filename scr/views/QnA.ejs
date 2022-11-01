@@ -7,45 +7,81 @@
     <title>Image to Text Converter</title>
     <script src="https://kit.fontawesome.com/57a3e51741.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
-    <link rel="stylesheet" href="/css/index.css"> 
+    <link rel="stylesheet" href="css/index.css"> 
 </head>
 <body>
     <%- include('partials/nav.ejs') %>
 
-    <form action="/QnA" method="post">
-        <div class="mb-3">
-            <label for="exampleFormControlTextarea1" class="form-label">Enter your Question</label>
-            <textarea class="form-control" id="queform" rows="3" name="que"></textarea>
-          </div>
-        <button type="submit">Get Answer</button>
-    </form>
-
-    <% let s = '' %>
 
     
-    <% for(let i = 0 ; i < ans.length ; i++){ %> 
-      <% s= s.concat(`${i+1}. ${ans[i]} \r\n`)  %>; 
-      <% } %> 
-
-
-
-      <!-- <div id="gotque" style="display: none ;"><%= que%></div> -->
-
-      <form action="/saveans" method="post">
-        <input type="text" name="getque" id="que" value="<%=que%>">
-          <input type="text" name="ans" id="ans" value="<%= s %> ">
-          <button type="submit">Save Answer</button>
-      </form>
+    <div class="container col-12 my-2">
       
-      <div class="container">
-        <h1>Your Possible Answers are :</h1>
-        <%= s %> 
-      </div>
+      <div class="title row-1 my-3">Question and Answers</div>
+      <div class ="info row-1 my-4">Get Some Possible Answers to given question</div>
 
+    
+
+     <div class="row-4 my-3 w-100 px-4 m-auto">
+      <form action="/QnA" method="post">
+        <label for="exampleFormControlTextarea1 row" class="form-label blue">Enter a Question</label>
+      <div class=" mb-3 row">
+        <div class="input-area my-2 col-12">
+          <input type="text" class="form-control" id="gettext" name="que" required>
+      </div>
+        <button type="submit" class="btn btn-cdark w-25 my-2 m-auto">Get Answers</button>
+      </div>
+      </form>
+  </div>
+
+
+
+
+
+  <% if(ans!=null){ %>
+  <form action="/saveans" method="post">
+    <div class="savefrom row">
+    <div class="col-12">
+        <input class="form-control " id="imgtotxttexttitle" name="getque" value="<%= que %> " style="display: none;" type="text"  required>
+        <input type="text" style="display: none;" name="ans" value="<%= ans %>" required>
+    </div>
+    <button class="btn btn-cdark mx-auto w-auto" type="submit" style="margin:auto ;">Save this Question <i class="fa-solid fa-floppy-disk "></i></button>
+</div>
+   </form>
+
+    <div class="row-6">
+      <div id="gettext" class="printtext placeholder-glow container my-3">
+        Answer : 
+        <% let i = 1; %> 
+           <% ans.forEach(element => { %>
+               <br>
+               <%= i %>.  
+               <%=element%>
+               <% i++; %>  
+         <%  }); %> 
+    </div>
+
+    
+</div>
+    
+    <% }%>
+
+    <% if(saved) {%> 
+      <div class="container justify-content-center w-25">
+        <button onclick="hidit()" class="successmsg col-12 btn btn-success" >Your question is saved in Your Profile.</button>
+      </div>
+    <% }else{%>
+      <% } %>    
+        <!-- dont change id -->
+        
+
+  
+
+ 
+ 
 
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
-<script src="./js/QnA.js"></script>
+<script src="js/QnA.js"></script>
 </body>
 </html>
 
