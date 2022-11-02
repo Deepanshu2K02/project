@@ -30,7 +30,6 @@ initializeApp(firebaseConfig);
 const auth = getAuth();
 const storage = getStorage();
 
-
 app.set('view engine' , 'ejs');
 app.use(express.static(path.join(__dirname, '/views')))
 app.use(bodyparser.urlencoded());
