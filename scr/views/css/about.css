@@ -23,7 +23,8 @@
 }
 .abouttitle{
     text-align: center;
-    color: var(--green);
+    color: #121F0D;
+    font-weight: 700;
     font-size: 3rem;
     padding: 1rem;
     margin-bottom: 1rem;
@@ -41,7 +42,11 @@
 
 #about{
     top: 10rem;
-    margin-bottom: 2rem;
+    /* margin-bottom: 2rem; */
+    border-radius: 1rem;
+    width:80%;
+    margin: auto;
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.3);
 }
 
 .aboutserviceitem:hover{
@@ -51,13 +56,14 @@
 }
 
 .serviceintrotitle{
-    color: var(--green);
+    color: #121F0D;
+    font-weight: 700;
     font-size: 1.8rem;
     text-align: center;
 }
 
 .serviceitemtitle{
-    color: var(--blue);
+    color: #00A9F1;
     font-size: 1.5rem;
     margin-bottom: 1rem;
 }
