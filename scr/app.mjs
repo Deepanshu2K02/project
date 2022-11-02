@@ -93,8 +93,9 @@ const allurlformpath = async (path)=>{
         let response = await listAll(listRef);
 
         for (const i of response.items) {
+            let name = i.name;
             let url = await filedownload(i.fullPath);
-            imgurls.push(url)
+            imgurls.push({name, url})
         }
 
         return imgurls;
@@ -141,21 +142,33 @@ app.get('/userpage',async (req,res)=>{
     const auth = getAuth();
     const user = auth.currentUser;
     if (user !== null) {
-    console.log(user.displayName);
+       
+            // The user object has basic properties such as display name, email, etc.
+            const displayName = user.displayName;
+            const email = user.email;
+            const photoURL = user.photoURL;
+            const emailVerified = user.emailVerified;
     
     let imgtotxturls = await allurlformpath(`users/${user.uid}/imgtotxt`);
-    console.log(imgtotxturls);
 
     let summaryurls = await allurlformpath(`users/${user.uid}/summary`);
-    console.log(summaryurls);
 
     let QnAurls = await allurlformpath(`users/${user.uid}/QnA`);
-    console.log(QnAurls);
 
     let translatedurls = await allurlformpath(`users/${user.uid}/translation`);
-    console.log(translatedurls);
-    
-    res.render('User.ejs');
+
+    //  let imgtotxturls=null,  summaryurls = null , QnAurls = null , translatedurls = null;
+
+    res.render('User.ejs',{
+        displayName : displayName,
+        email : email,
+        photoURL : photoURL,
+        emailVerified : emailVerified,
+        imgtotxturls : imgtotxturls,
+        summaryurls : summaryurls ,
+        QnAurls : QnAurls,
+        translatedurls : translatedurls
+    });
 
     }
     else{
@@ -170,20 +183,19 @@ app.get('/error',(req,res)=>{
 })
 
 app.post('/signup',(req,res)=>{
-    console.log(__dirname)
+    console.log('signing in');
     let email = req.body.semail;
     let name = req.body.sname;
     let password = req.body.spassword;
-    
-    createUserWithEmailAndPassword(auth,email,password)
+
+    try {
+        createUserWithEmailAndPassword(auth,email,password)
     .then((cred)=>{
 
     updateProfile(auth.currentUser, {
-        displayName: name,
+        displayName: name, photoURL : path.join(__dirname,'/views/images/user.png')
       }).then(() => {
-        res.render('User.ejs',{
-            user : auth.currentUser,
-        });
+        res.redirect('/userpage');
 
       }).catch((error) => {
         console.log(error);
@@ -196,7 +208,12 @@ app.post('/signup',(req,res)=>{
             error : err.message
         })
     })
-})
+    } catch (error) {
+        res.redirect('/');
+    }
+    
+    
+});
 
 app.post('/login',(req,res)=>{ 
     let email = req.body.email;
@@ -253,7 +270,6 @@ const savetostore = (file,path)=>{
               });
 }
 
-// save text to user storgare -> 2 inputs -> files , functionid
 const savetxt = (files,functionid)=>{
         
     let user = auth.currentUser;

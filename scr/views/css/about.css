@@ -13,15 +13,6 @@
     --blue : #0086D6;
 }
 
-.example::-webkit-scrollbar {
-    display: none;
-  }
-  
-  /* Hide scrollbar for IE, Edge and Firefox */
-  .example {
-    -ms-overflow-style: none;  /* IE and Edge */
-    scrollbar-width: none;  /* Firefox */
-  }
 
 .main-container{
     background-color: var(--pri-col);
@@ -43,6 +34,7 @@
     margin-bottom: 1rem;
 }
 .aboutintro:hover{
+   border-radius: 1rem;
    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
    cursor: pointer;
 }
@@ -54,6 +46,7 @@
 
 .aboutserviceitem:hover{
     cursor: pointer;
+    border-radius: 1;
    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
 }
 

@@ -7,32 +7,169 @@
     <title>Image to Text Converter</title>
     <script src="https://kit.fontawesome.com/57a3e51741.js" crossorigin="anonymous"></script>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
     <link rel="stylesheet" href="css/userpage.css">
 </head>
 <body>
     <%- include('partials/nav.ejs') %>
-
     <div class="container-main">
+<section">
+        <div class="container py-5">
+          <div class="row">
+            <div class="col-lg-4">
+              <div class="card mb-4">
+                <div class="card-body text-center">
+    <img class="rounded-circle img-fluid" style="width: 150px;" src="images/profile.gif">
+
+                  <h5 class="my-3"><%=displayName %></h5>
+
+                  <div class="d-flex justify-content-center mb-2">
+                    <a href="/#services" class="btn btn-primary ms-1">Serivces</a>
+                    <a href="/logout" class="btn btn-outline-danger ms-1">Log Out</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-8">
+              <div class="card mb-4">
+                <div class="card-body">
+
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Full Name</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0"><%=displayName %></p>
+                    </div>
+                  </div>
+                  <hr>
+
+                  <div class="row">
+                    <div class="col-sm-3">
+                      <p class="mb-0">Email</p>
+                    </div>
+                    <div class="col-sm-9">
+                      <p class="text-muted mb-0"><%=email %></p>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        </div>
+
+  <div class="container-fuild user-data">
+
+    <div class="saved-title container text-bg-dark text-center bg-cdark">View your Saved Stuff Here</div>
+
+    <% if(imgtotxturls.length != 0){ %> 
+
+    <div class="imgtotxt-slider">
+
+        <div class="title container my-3">Your Image Extracted Text Files :</div>
+
+        <div class="container  my-3 overflow-auto">
+                <div class="row my-2">
+           <% for(let i = 0 ; i < imgtotxturls.length ; i++){ %> 
+               <div class="item-card col-3 my-4 g-2">
+                <a href="<%=imgtotxturls[i].url%>" class="card-title w-50 text-center justify-content-center">
+                  <%=imgtotxturls[i].name%> 
+                  </a>
+                </div> 
+           <%}%> 
+ 
+
+          </div>
+        </div>
+    </div>
+    <% } %> 
+
+    <% if(summaryurls.length != 0){ %> 
+
+      <div class="imgtotxt-slider">
+  
+          <div class="title container my-3">Your Saved Summaries :</div>
+  
+          <div class="container  my-3 overflow-auto">
+                  <div class="row my-2">
+             <% for(let i = 0 ; i < summaryurls.length ; i++){ %> 
+                 <div class="item-card col-3 my-4 g-2">
+                  <a href="<%=summaryurls[i].url%>" class="card-title w-50 text-center justify-content-center">
+                    <%=summaryurls[i].name%> 
+                    </a>
+                  </div> 
+             <%}%> 
+   
+  
+            </div>
+          </div>
+      </div>
+      <% } %>
+
+      <% if(translatedurls.length != 0){ %> 
+
+        <div class="imgtotxt-slider">
+    
+            <div class="title container my-3">Your Saved Translations :</div>
+    
+            <div class="container  my-3 overflow-auto">
+                    <div class="row my-2">
+               <% for(let i = 0 ; i < translatedurls.length ; i++){ %> 
+                   <div class="item-card col-3 my-4 g-2">
+                    <a href="<%=translatedurls[i].url%>" class="card-title w-50 text-center justify-content-center">
+                      <%=translatedurls[i].name%> 
+                      </a>
+                    </div> 
+               <%}%> 
      
-    <form action="/updateuser" method="post">
-        <h1>Name</h1>
-        <input type="text" name="name">
-        <h1>PhotoUrl</h1>
-        <input type="text" name="photoUrl">
-        <button type="submit">Update</button>
-    </form>
+    
+              </div>
+            </div>
+        </div>
+        <% } %>
 
-    <button> <a href="/logout"> LogOut</a></button>
+        <% if(QnAurls.length != 0){ %> 
+
+          <div class="imgtotxt-slider">
+      
+              <div class="title container my-3">Your Saved Answers :</div>
+      
+              <div class="container  my-3 overflow-auto">
+                      <div class="row my-2">
+                 <% for(let i = 0 ; i < QnAurls.length ; i++){ %> 
+                     <div class="item-card col-3 my-4 g-2">
+                      <a href="<%=QnAurls[i].url%>" class="card-title w-50 text-center justify-content-center">
+                        <%=QnAurls[i].name%> 
+                        </a>
+                      </div> 
+                 <%}%> 
+       
+      
+                </div>
+              </div>
+          </div>
+          <% } %>
 
 
-    <h1>ImgToText Files</h1>
+
+          </div>
+
+        </div>
+
+      </section>
+
 
  
 </div>
     <%- include('partials/footer.ejs') %> 
 
+
+
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.min.js" integrity="sha384-IDwe1+LCz02ROU9k972gdyvl+AESN10+x7tBKgc9I5HFtuNz0wWnPclzo6p9vxnk" crossorigin="anonymous"></script>
-<script src="./js/index.js"></script>
+<script src="./js/userpage.js"></script>
 </body>
 </html>
