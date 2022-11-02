@@ -314,7 +314,7 @@ app.post('/imgtotxt',(request,response)=>{
         "port": null,
         "path": `/ocr?url=${imgurl}`,
         "headers": {
-            "X-RapidAPI-Key": "0c7dda6d6bmsh8b06d89db786c1ap104501jsna3cf57ff702b",
+            "X-RapidAPI-Key": "a9b82fb48emsh5805ff4c98752c2p138328jsn79eeb2b18429",
             "X-RapidAPI-Host": "ocr-extract-text.p.rapidapi.com",
             "useQueryString": true
         }
@@ -396,7 +396,7 @@ try {
         "path": `/translate?to%5B0%5D=${lang}&api-version=3.0&profanityAction=NoAction&textType=plain`,
         "headers": {
             "content-type": "application/json",
-            "X-RapidAPI-Key": "0c7dda6d6bmsh8b06d89db786c1ap104501jsna3cf57ff702b",
+            "X-RapidAPI-Key": "a9b82fb48emsh5805ff4c98752c2p138328jsn79eeb2b18429",
             "X-RapidAPI-Host": "microsoft-translator-text.p.rapidapi.com",
             "useQueryString": true
         }
@@ -485,7 +485,7 @@ app.post('/summary',(request,response)=>{
         "path": "/summarize",
         "headers": {
             "content-type": "application/json",
-            "X-RapidAPI-Key": "79f25e9d42mshed666ecd3dda012p1ed78ejsnaa144f427d4e",
+            "X-RapidAPI-Key": "a9b82fb48emsh5805ff4c98752c2p138328jsn79eeb2b18429",
             "X-RapidAPI-Host": "gpt-summarization.p.rapidapi.com",
             "useQueryString": true
         }
@@ -562,7 +562,7 @@ app.post('/QnA',(request,response)=>{
         "port": null,
         "path": `/question-answer?question=${encodeURIComponent(que)}`,
         "headers": {
-            "X-RapidAPI-Key": "785c7cec95mshb0e94aab5f692c6p113ea9jsna35a7d1beee5",
+            "X-RapidAPI-Key": "a9b82fb48emsh5805ff4c98752c2p138328jsn79eeb2b18429",
             "X-RapidAPI-Host": "question-answer.p.rapidapi.com",
             "useQueryString": true
         }
@@ -650,7 +650,7 @@ const options = {
 	"path": "/synthesize",
 	"headers": {
 		"content-type": "application/x-www-form-urlencoded",
-		"X-RapidAPI-Key": "5922605310msh98c3321e6c15dd4p1af3f5jsn309d0d0cdf97",
+		"X-RapidAPI-Key": "a9b82fb48emsh5805ff4c98752c2p138328jsn79eeb2b18429",
 		"X-RapidAPI-Host": "cloudlabs-text-to-speech.p.rapidapi.com",
 		"useQueryString": true
 	}
