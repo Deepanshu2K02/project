@@ -1,32 +1,20 @@
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
-import validator from 'validator';
 import path from 'path';
 import { fileURLToPath } from 'url';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-
 const express = require('express');
 const http = require('https');
 const bodyparser = require('body-parser');
-const FormData = require('form-data');
-const fs = require("fs");
-const fetch = require('node-fetch');
 const multer  = require('multer')
-const upload = multer({ dest: 'uploads/' })
 const app = express();
-// let initializeApp  = require('firebase/app')
 
 import { initializeApp } from 'firebase/app';
-import {
-   getFirestore,collection, getDocs , onSnapshot, getDoc,
-    addDoc , deleteDoc ,doc , query , where, orderBy, serverTimestamp, updateDoc,
-} from 'firebase/firestore';
-import {
-    createUserWithEmailAndPassword, getAuth, onAuthStateChanged, getRedirectResult,
-    signInWithPopup, signInWithEmailAndPassword, signOut, GoogleAuthProvider ,updateProfile
-} from 'firebase/auth';
-import { connectStorageEmulator, getStorage,ref,uploadString,getDownloadURL,listAll} from "firebase/storage";
+import { getFirestore,collection } from 'firebase/firestore';
+import { createUserWithEmailAndPassword, getAuth,signInWithEmailAndPassword, signOut,updateProfile } from 'firebase/auth';
+import {  getStorage,ref,uploadString,getDownloadURL,listAll } from "firebase/storage";
 
 
 const firebaseConfig = {
@@ -38,58 +26,41 @@ const firebaseConfig = {
     appId: "1:1039784491156:web:6154e8fb9d66844ed5dc81"
 };
 
-initializeApp(firebaseConfig)  // init firebase app
-const db = getFirestore();     //init database
+initializeApp(firebaseConfig);  
 const auth = getAuth();
 const storage = getStorage();
-const storageRef = ref(storage);
 
-const imageStorage = multer.diskStorage({
-    // Destination to store image     
-    destination: 'images', 
-      filename: (req, file, cb) => {
-          cb(null, file.originalname)
-    }
-});
-const imageUpload = multer({
-    storage: imageStorage,
-    limits: {
-      fileSize: 10000000 // 10000000 Bytes = 10 MB
-    },
-    fileFilter(req, file, cb) {
-      if (!file.originalname.match(/\.(png|jpg)$/)) { 
-         return cb(new Error('Please upload a Image'))
-       }
-     cb(undefined, true)
-  }
-}) 
 
-const filedownload = async (file_path)=>{
-
-// Create a reference to the file we want to download
-const starsRef = ref(storage, file_path);
-
-// Get the download URL
-return await getDownloadURL(starsRef)
-  .then((url) => {
-    return url;
-  })
-  .catch((error) => {
-    return error.code;
-  });
-}
-
-const colRef = collection(db,'users')  // get collection reference
 app.set('view engine' , 'ejs');
 app.use(express.static(path.join(__dirname, '/views')))
 app.use(bodyparser.urlencoded());
 app.use(bodyparser.json());
 
+
+/**********************************FUNCTIONS*******************************************************/
+const filedownload = async (file_path)=>{
+
+ try {
+    const starsRef = ref(storage, file_path);
+
+   return await getDownloadURL(starsRef)
+  .then((url) => {
+    return url;
+  })
+  .catch((error) => {
+    return null;
+  });
+
+    } catch (error) {
+        return null
+    }
+};
+
 const allurlformpath = async (path)=>{
+    try{
     let imgurls = [];
     const listRef = ref(storage, path);
 
-    try{
         let response = await listAll(listRef);
 
         for (const i of response.items) {
@@ -101,29 +72,83 @@ const allurlformpath = async (path)=>{
         return imgurls;
     }
    catch(error){
-    console.log(error);
-    return ['error'];
+    return []
    }
     
 
-}
+};
 
+const savetostore = (file,path)=>{
+    try {
+        const storageRef = ref(storage, path);
+            uploadString(storageRef, file);
+    } catch (error) {
+        return error;
+    }
+    
+};
 
-
-/***************************************   USER ACTIONS   ***********************************************************/
-
-app.get('/',(req,res,next)=>{
-
+const savetxt = (files,functionid)=>{
+        try {
     let user = auth.currentUser;
-    if(user){
-    res.render('index.ejs');
+
+    if(functionid === 'imgtotxt'){
+            let {title , text} = files;
+            const storageRef = ref(storage, `users/${user.uid}/${functionid}/${title}.txt`);
+            
+            uploadString(storageRef, text);
+        } 
+    if(functionid === 'translation'){
+        let orignaltext = files.orignaltext;
+        let title = files.title;
+        const storageRef1 = ref(storage, `users/${user.uid}/${functionid}/${title}.txt`);
+        
+            uploadString(storageRef1, orignaltext);
+    }       
+
+    if(functionid === 'summary'){
+         let title = files.title;
+         let summary = files.summary;
+       
+         const storageRef = ref(storage, `users/${user.uid}/${functionid}/${title}.txt`);
+            uploadString(storageRef, summary);
+
     }
-    else{
-        res.redirect('/loginpage');
+    
+    if(functionid === 'QnA'){
+        let que = files.que;
+        let ans = files.ans;
+        let file = que.concat('\n\n','Answers : \n\n',ans);
+
+        savetostore(file,`users/${user.uid}/${functionid}/${files.que}.txt`);
     }
+} catch (error) {
+          return error; 
+}
+};
+
+/*******************************FUNCTIONS*******************************************************/
+
+
+/*****************************************MAIN PAGES*******************************************/
+app.get('/',(req,res)=>{
+    try {
+          let user = auth.currentUser;
+          if(user){
+          res.render('index.ejs');
+          }
+          else{
+              res.redirect('/loginpage');
+          }
+              
+   } catch (error) {
+        res.redirect('/error');
+   }
 });
 
 app.get('/loginpage',(req,res)=>{
+
+try {
     let user = auth.currentUser;
     if(user){
         res.redirect('/userpage');
@@ -134,16 +159,20 @@ app.get('/loginpage',(req,res)=>{
             error : ''
         });
     }
+} catch (error) {
+    res.redirect('/error');
+}    
     
 });
 
 app.get('/userpage',async (req,res)=>{
 
+try {
+       
     const auth = getAuth();
     const user = auth.currentUser;
     if (user !== null) {
        
-            // The user object has basic properties such as display name, email, etc.
             const displayName = user.displayName;
             const email = user.email;
             const photoURL = user.photoURL;
@@ -157,7 +186,6 @@ app.get('/userpage',async (req,res)=>{
 
     let translatedurls = await allurlformpath(`users/${user.uid}/translation`);
 
-    //  let imgtotxturls=null,  summaryurls = null , QnAurls = null , translatedurls = null;
 
     res.render('User.ejs',{
         displayName : displayName,
@@ -174,21 +202,29 @@ app.get('/userpage',async (req,res)=>{
     else{
         res.redirect('/loginpage');
     }
+
+} catch (error) {
+    res.redirect('/error');  
+} 
+
 });
 
 app.get('/error',(req,res)=>{
-    console.log(req.body);
     res.write('You are getting error , find cause for it');
     res.end();
-})
+});
+
+/*****************************************MAIN PAGES*******************************************/
+
+
+/***************************************   USER ACTIONS   ***********************************************************/
 
 app.post('/signup',(req,res)=>{
-    console.log('signing in');
+    try {
     let email = req.body.semail;
     let name = req.body.sname;
     let password = req.body.spassword;
 
-    try {
         createUserWithEmailAndPassword(auth,email,password)
     .then((cred)=>{
 
@@ -198,8 +234,7 @@ app.post('/signup',(req,res)=>{
         res.redirect('/');
 
       }).catch((error) => {
-        console.log(error);
-        res.redirect('/');
+        res.redirect('/error');
       });
 
     }).catch((err)=>{
@@ -209,7 +244,7 @@ app.post('/signup',(req,res)=>{
         })
     })
     } catch (error) {
-        res.redirect('/');
+        res.redirect('/error');
     }
     
     
@@ -228,19 +263,7 @@ app.post('/login',(req,res)=>{
             error : err.message
         })
     })
-})
-
-app.get('/logout',(req,res)=>{
-    signOut(auth).then(()=>{
-        res.redirect('/loginpage');
-    }).catch((err)=>{
-        console.log(err);
-        res.end();
-    })
-})
-
-/*********************************************************************************************************************/
-
+});
 
 app.post('/updateuser',(req,res)=>{
     let name = req.body.name;
@@ -259,67 +282,20 @@ app.post('/updateuser',(req,res)=>{
       }).catch((error) => {
         console.log(error);
       });
-})
+});
 
-const savetostore = (file,path)=>{
-    const storageRef = ref(storage, path);
-            uploadString(storageRef, file).then((snapshot) => {
-                
-              }).catch((err)=>{
-                console.log(err);
-              });
-}
+app.get('/logout',(req,res)=>{
+    signOut(auth).then(()=>{
+        res.redirect('/loginpage');
+    }).catch((err)=>{
+        console.log(err);
+        res.end();
+    })
+});
 
-const savetxt = (files,functionid)=>{
-        
-    let user = auth.currentUser;
+/***************************************   USER ACTIONS   ***********************************************************/
 
-    if(functionid === 'imgtotxt'){
-            let {title , text} = files;
-        
-            const storageRef = ref(storage, `users/${user.uid}/${functionid}/${title}.txt`);
-            uploadString(storageRef, text).then((snapshot) => {
-                
-              }).catch((err)=>{
-                console.log(err);
-              });
-        } 
-    if(functionid === 'translation'){
-        let orignaltext = files.orignaltext;
-        // let translatedtext = files.translatedtext;
-        let title = files.title;
-        
-        const storageRef1 = ref(storage, `users/${user.uid}/${functionid}/${title}.txt`);
-            uploadString(storageRef1, orignaltext).then((snapshot) => {
-                
-              }).catch((err)=>{
-                console.log(err);
-              });
-    }       
 
-    if(functionid === 'summary'){
-         let title = files.title;
-         let summary = files.summary;
-       
-         const storageRef = ref(storage, `users/${user.uid}/${functionid}/${title}.txt`);
-            uploadString(storageRef, summary).then((snapshot) => {
-                
-              }).catch((err)=>{
-                console.log(err);
-              });
-
-        // savetostore(text,`users/${user.uid}/${functionid}/${title}.txt`,metadata)
-    }
-    
-    if(functionid === 'QnA'){
-        let que = files.que;
-        let ans = files.ans;
-
-        let file = que.concat('\n\n','Answers : \n\n',ans);
-        // savetostore(files.que,`users/${user.uid}/${functionid}/${files.que}/que.txt`);
-        savetostore(file,`users/${user.uid}/${functionid}/${files.que}.txt`);
-    }
-}
 
 /***************************IMAGE TO TEXT FUNCTIONALITY***************************/
 
@@ -354,7 +330,6 @@ app.post('/imgtotxt',(request,response)=>{
         
         res.on("end", async function () {
             const body = await Buffer.concat(chunks);
-            // console.log(JSON.parse(body));
             let text = await JSON.parse(body).text;
             response.render('imgtotxt.ejs',{
                 gottext : text,
@@ -379,8 +354,6 @@ app.post('/saveimgtotxt',(req,res)=>{
 
     
     savetxt(file,'imgtotxt');
-    // users/${user.uid}/${functionid}/${title}.txt
-    // savetxtconfig()
 
     res.render('imgtotxt.ejs',{
         gottext : text
@@ -392,26 +365,27 @@ else{
 }
 });
 
-app.post('/downloadimgtotxt',(req,res)=>{
-    let title = req.body.downloadtitle;
-    let text = req.body.downloadtext;
-       res.end();
-});
-
-
 /***************************IMAGE TO TEXT FUNCTIONALITY***************************/
 
 
 /***************************TRANSLATION FUNCTIONALITY*****************************/
 
 app.get('/translate',(req,res)=>{
-    res.render('TranslatePage.ejs',{
-        translatedtext :null,
-        orignaltext:null
-    });
+    try {
+        res.render('TranslatePage.ejs',{
+            translatedtext :null,
+            orignaltext:null
+        });
+    } catch (error) {
+        res.redirect('/error');
+    }
+    
 });
 
 app.post('/translate',(request,response)=>{
+    
+try {
+  
     let text = request.body.text;
     let lang = request.body.lang;
 
@@ -451,16 +425,27 @@ app.post('/translate',(request,response)=>{
     
     req.write(JSON.stringify([{Text: text}]));
     req.end();
+
+          
+} catch (error) {
+      res.redirect('/error');  
+}
+
 });
 
 app.post('/savetranslation',(req,res)=>{
+
+    try {
+   
+
     let user = auth.currentUser;
     if(user){
         let orignaltext = req.body.orignaltext;
         let translatedtext = req.body.translatedtext;
+        let title = req.body.title;
 
         orignaltext = orignaltext + '\n\n\n' + translatedtext;
-        let title = req.body.title;
+
         savetxt({
                 orignaltext : orignaltext , 
                 title : title
@@ -470,7 +455,14 @@ app.post('/savetranslation',(req,res)=>{
     else{
         res.redirect('/loginpage');
     }
+
    res.redirect('/translate');
+
+        
+} catch (error) {
+        res.redirect('/error');
+}
+
 });
 
 /***************************TRANSLATION FUNCTIONALITY*****************************/
@@ -501,7 +493,7 @@ app.post('/summary',(request,response)=>{
     };
     
     const req = http.request(options, function (res) {
-        const chunks = [];
+    const chunks = [];
     
         res.on("data", function (chunk) {
             chunks.push(chunk);
@@ -518,7 +510,7 @@ app.post('/summary',(request,response)=>{
     
     req.write(JSON.stringify({
       text: para,
-      num_sentences: 6
+      num_sentences: 4
     }));
     req.end();
 
@@ -563,9 +555,6 @@ app.get('/QnA',(req,res)=>{
 app.post('/QnA',(request,response)=>{
 
    try {
-    
-   
-
     let que = request.body.que;
     
     const options = {
@@ -590,7 +579,6 @@ app.post('/QnA',(request,response)=>{
     
         res.on("end", async function () {
             const body = Buffer.concat(chunks);
-            console.log(body);
             let ans = await JSON.parse(body);
             
             if(ans != null){
@@ -633,7 +621,7 @@ app.post('/saveans',(req,res)=>{
          })
     }
     else{
-        res.redirect('/loginpage');
+        res.redirect('/');
     }
 });
 
@@ -650,8 +638,7 @@ app.get('/txtTospeech',(req,res)=>{
 
 app.post('/txtTospeech',(request,response)=>{
 
-    let textfile = request.body.text;
-    let voicecode = request.body.voice;
+let voicecode = request.body.voice;
 
 
 const qs = require("querystring");
@@ -707,9 +694,7 @@ req.end();
 
 /****************************TEXT TO SPEECH FUNCTIONALITY**************************/
 
-// onAuthStateChanged(auth,(user)=>{             // very useful 
-//     console.log('User Status' , user);        // tells current state of user
-// })
+
 
 
 
