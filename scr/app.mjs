@@ -195,7 +195,7 @@ app.post('/signup',(req,res)=>{
     updateProfile(auth.currentUser, {
         displayName: name, photoURL : path.join(__dirname,'/views/images/user.png')
       }).then(() => {
-        res.redirect('/userpage');
+        res.redirect('/');
 
       }).catch((error) => {
         console.log(error);

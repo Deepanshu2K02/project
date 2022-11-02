@@ -39,24 +39,24 @@ body::-webkit-scrollbar {
     max-width: 15rem;
     min-height: 20rem;
     border-radius:1rem;
-    border: var(--sec-col) solid 1px;
-    background-color: var(--pri-col);
+    /* border: var(--sec-col) solid 1px; */
     color: var(--sec-col);
     transition: 10ms all;
+    background-color: #EFFBFF;
+    box-shadow: inset 0 5px 10px rgba(0,0,0,0.1);
 }
 .card-design:hover{
-    background-color: #EFFBFF;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
-}
-
-.card-design:hover a{
-    display: block;
+    
 }
 
 .card-design a{
-    display: none;
+    border-bottom-left-radius:1rem;
+    border-bottom-right-radius:1rem;
+    border-top-right-radius:0;
+    border-top-left-radius:0;
     background-color: var(--sec-col);
-}           
+}
+         
 
 
 .service-title{
