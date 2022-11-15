@@ -13,6 +13,7 @@ const app = express();
 import { initializeApp } from "firebase/app";
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut, updateProfile,signInWithPopup, GoogleAuthProvider, } from "firebase/auth";
 import { getStorage, ref, uploadString, getDownloadURL, listAll, } from "firebase/storage";
+import { promiseImpl } from "ejs";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBR2x1LfeDAgPo2ezzOtCk9xOUcQXFsO3k",
@@ -169,25 +170,25 @@ app.get("/userpage", async (req, res) => {
       const photoURL = user.photoURL;
       const emailVerified = user.emailVerified;
 
-      let imgtotxturls = await allurlformpath(`users/${user.uid}/imgtotxt`);
+      let imgtotxturls = allurlformpath(`users/${user.uid}/imgtotxt`);
 
-      let summaryurls = await allurlformpath(`users/${user.uid}/summary`);
+      let summaryurls = allurlformpath(`users/${user.uid}/summary`);
 
-      let QnAurls = await allurlformpath(`users/${user.uid}/QnA`);
+      let QnAurls = allurlformpath(`users/${user.uid}/QnA`);
 
-      let translatedurls = await allurlformpath(
-        `users/${user.uid}/translation`
-      );
+      let translatedurls = allurlformpath(`users/${user.uid}/translation`);
+
+      let data = await Promise.all([imgtotxturls,summaryurls,QnAurls,translatedurls]);
 
       res.render("User.ejs", {
         displayName: displayName,
         email: email,
         photoURL: photoURL,
         emailVerified: emailVerified,
-        imgtotxturls: imgtotxturls,
-        summaryurls: summaryurls,
-        QnAurls: QnAurls,
-        translatedurls: translatedurls,
+        imgtotxturls: data[0],
+        summaryurls: data[1],
+        QnAurls: data[2],
+        translatedurls: data[3],
       });
     } else {
       res.redirect("/loginpage");
