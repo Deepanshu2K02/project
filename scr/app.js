@@ -14,7 +14,6 @@ const app = express();
 import { initializeApp } from "firebase/app";
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut, updateProfile,signInWithPopup, GoogleAuthProvider, } from "firebase/auth";
 import { getStorage, ref, uploadString, getDownloadURL, listAll, } from "firebase/storage";
-import { promiseImpl } from "ejs";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBR2x1LfeDAgPo2ezzOtCk9xOUcQXFsO3k",
@@ -33,6 +32,7 @@ provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "/views")));
+app.set('views',path.join(__dirname,'/views'));
 app.use(bodyparser.urlencoded());
 app.use(bodyparser.json());
 
