@@ -8,6 +8,7 @@ const __dirname = path.dirname(__filename);
 const express = require("express");
 const http = require("https");
 const bodyparser = require("body-parser");
+require("dotenv").config();
 const app = express();
 
 import { initializeApp } from "firebase/app";
@@ -307,7 +308,7 @@ app.post("/imgtotxt", (request, response) => {
     port: null,
     path: `/ocr?url=${imgurl}`,
     headers: {
-      "X-RapidAPI-Key": "a9b82fb48emsh5805ff4c98752c2p138328jsn79eeb2b18429",
+      "X-RapidAPI-Key": process.env.API_KEY,
       "X-RapidAPI-Host": "ocr-extract-text.p.rapidapi.com",
       useQueryString: true,
     },
@@ -380,7 +381,7 @@ app.post("/translate", (request, response) => {
       path: `/translate?to%5B0%5D=${lang}&api-version=3.0&profanityAction=NoAction&textType=plain`,
       headers: {
         "content-type": "application/json",
-        "X-RapidAPI-Key": "a9b82fb48emsh5805ff4c98752c2p138328jsn79eeb2b18429",
+        "X-RapidAPI-Key":  process.env.API_KEY,
         "X-RapidAPI-Host": "microsoft-translator-text.p.rapidapi.com",
         useQueryString: true,
       },
@@ -460,7 +461,7 @@ app.post("/summary", (request, response) => {
     path: "/summarize",
     headers: {
       "content-type": "application/json",
-      "X-RapidAPI-Key": "a9b82fb48emsh5805ff4c98752c2p138328jsn79eeb2b18429",
+      "X-RapidAPI-Key":  process.env.API_KEY,
       "X-RapidAPI-Host": "gpt-summarization.p.rapidapi.com",
       useQueryString: true,
     },
@@ -534,7 +535,7 @@ app.post("/QnA", (request, response) => {
       port: null,
       path: `/question-answer?question=${encodeURIComponent(que)}`,
       headers: {
-        "X-RapidAPI-Key": "a9b82fb48emsh5805ff4c98752c2p138328jsn79eeb2b18429",
+        "X-RapidAPI-Key":  process.env.API_KEY,
         "X-RapidAPI-Host": "question-answer.p.rapidapi.com",
         useQueryString: true,
       },
@@ -590,7 +591,6 @@ app.post("/saveans", (req, res) => {
     res.redirect("/");
   }
 });
-
 /****************************QUESTIONS AND ANSWERS*********************************/
 
 /****************************TEXT TO SPEECH FUNCTIONALITY**************************/
@@ -614,7 +614,7 @@ app.post("/txtTospeech", (request, response) => {
     path: "/synthesize",
     headers: {
       "content-type": "application/x-www-form-urlencoded",
-      "X-RapidAPI-Key": "a9b82fb48emsh5805ff4c98752c2p138328jsn79eeb2b18429",
+      "X-RapidAPI-Key":  process.env.API_KEY,
       "X-RapidAPI-Host": "cloudlabs-text-to-speech.p.rapidapi.com",
       useQueryString: true,
     },
