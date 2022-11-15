@@ -410,7 +410,7 @@ app.post("/translate", (request, response) => {
     req.write(JSON.stringify([{ Text: text }]));
     req.end();
   } catch (error) {
-    res.redirect("/error");
+    response.redirect("/error");
   }
 });
 

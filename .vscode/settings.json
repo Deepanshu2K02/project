@@ -1,3 +1,5 @@
 {
-    "git.ignoreLimitWarning": true
+    "git.ignoreLimitWarning": true,
+    "appService.defaultWebAppToDeploy": "/subscriptions/4991278b-2714-41bc-965d-6124aad4338e/AppServices/subscriptions/4991278b-2714-41bc-965d-6124aad4338e/resourceGroups/PlainStart/providers/Microsoft.Web/sites/texttools98",
+    "appService.deploySubpath": "."
 }
