@@ -53,16 +53,23 @@ body{margin: 0; padding: 0;
 
 #particles-js{height: 100%}
 
+#login-Page{
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 
 .loginBox , .signupBox{
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%,-50%);
-    width: 350px; min-height: 200px; 
-    background: white; 
-    border-radius: 10px; padding: 40px;
+    width: 37rem;
+    min-height: 56rem;
+    background: white;
+    border-radius: 1rem;
+    padding: 3.3rem;
     box-sizing: border-box;
-    box-shadow: 0 5px 10px rgba(0,0,0, 0.2); 
+    box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
     transition: 1s ease-in-out;
 }
 
@@ -70,49 +77,52 @@ body{margin: 0; padding: 0;
 .user{
     margin: 0 auto;
     display: block;
-    font: 400;
-    margin-bottom: 10px
+    font-weight: 700;
+    margin-bottom: 2.9rem;
     }
 
 
-h3{margin: 0;
-    padding: 0 0 20px;
+h3{
+    margin: 0;
+    padding: 0 0 2rem;
     color: var(--sec-col);
-    text-align: center
+    text-align: center;
 }
 
 
-.loginBox input{
+.loginBox input,.signupBox input{
     width: 100%;
-    margin-bottom: 20px
-}
-
-.signupBox input{
-    width: 100%;
-    margin-bottom: 20px
+    margin-bottom: 1rem
 }
 
 
 .loginBox input[type="email"], .loginBox input[type="password"]{
     border: none;
-    border-bottom: 2px solid #262626;
-    outline: none; height: 40px;
+    border-bottom: 0.1rem solid #262626;
+    outline: none;
+    height: 4rem;
     color: var(--blue);
     background: transparent;
-    font-size: 1.3rem;
-    padding-left: 20px; box-sizing: border-box
+    font-size: 2.2rem;
+    padding-left: 1.4rem;
+    box-sizing: border-box;
 }
 
 .signupBox input[type="email"], .signupBox input[type="password"],.signupBox input[type ="text"]{
     border: none;
-    border-bottom: 2px solid #262626;
-    outline: none; height: 40px;
+    border-bottom: 0.1rem solid #262626;
+    outline: none;
+    height: 4rem;
     color: var(--blue);
     background: transparent;
-    font-size: 1.3rem;
-    padding-left: 20px; box-sizing: border-box
+    font-size: 2.2rem;
+    padding-left: 1.4rem;
+    box-sizing: border-box;
 }
 
+button[type = "submit"]{
+    width: 100%;
+}
 
 .loginBox input[type="email"]:hover, .loginBox input[type="password"]:hover{
     color: var(--sec-col); 
@@ -124,15 +134,15 @@ h3{margin: 0;
   
     
 .loginBox input[type="email"]:focus, .loginBox input[type="password"]:focus{
-    font-size: 2rem;
+    font-size: 2.2rem;
     text-transform: none;
-    border-bottom: 2px solid var(--blue)
+    border-bottom:0.1rem solid var(--blue)
 }
 
 .signupBox input[type="email"]:focus,.signupBox input[type="text"]:focus, .signupBox input[type="password"]:focus{
-    font-size: 2rem;
+    font-size: 2.2rem;
     text-transform: none;
-    border-bottom: 2px solid var(--blue)
+    border-bottom: 0.1rem solid var(--blue)
 }
 
 
@@ -147,13 +157,13 @@ h3{margin: 0;
  
 
 .loginBox a{
-    color: var(--blue); font-size: 14px;
+    color: var(--blue); font-size: 1rem;
     font-weight: bold;  text-decoration: none;
     text-align: center;  display: block
 }
 
 .signupBox a{
-    color: var(--blue); font-size: 14px;
+    color: var(--blue); font-size: 1rem;
     font-weight: bold;  text-decoration: none;
     text-align: center;  display: block
 }
@@ -164,10 +174,13 @@ a:hover{
 
 #tosignuppage{
     border: none;  outline: none;
-     margin-top: 1rem;
         height: 40px;  font-size: 2rem;
         color: var(--sec-col);
         cursor: pointer
+}
+
+#Signupnav{
+    margin-top: 1rem;
 }
 
 #tosignuppage:hover{
@@ -187,14 +200,13 @@ a:hover{
 }
 
 .warning{
-    font-size: 1rem;
+    font-size: 2rem;
     text-align: center;
     color: red;
 }
 
 .hide{
     opacity: 0;
-    transition: 1s all;
 }
 
 

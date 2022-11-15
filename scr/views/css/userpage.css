@@ -7,6 +7,10 @@
     list-style: none;
 }
 
+html{
+    animation: comeon .5s;
+}
+
 
 :root{
     --pri-col : #dfe6e9;
@@ -17,31 +21,25 @@
 
 #userpage .a0{
     transition: 2s all;
-    animation: comeon 2s;
 }
 
 #userpage .a1{
     transition: 2s all;
-    animation: comeon 2s;
 }
 
 #userpage .a2{
     transition: 2s all;
-    animation: comeon 2s;
 }
 
 #userpage .a3{
     transition: 2s all;
-    animation: comeon 2s;
 }
 
 @keyframes comeon {
     0%{
-        transform: translate(-200px);
         opacity: 0;
     }
     100%{
-        transform: translate(0px);
         opacity: 1;
     }
 }

@@ -10,7 +10,7 @@ footer{
 }
 
 :root{
-  --pri-col : #dfe6e9;
+  --pri-col :  #dfe6e9;
   --sec-col : #282D30;
   --green : #04C383;
   --blue : #0086D6;
@@ -35,6 +35,16 @@ body::-webkit-scrollbar {
     margin: 0px;
     padding: 0px;
     overflow-x: hidden; 
+    animation: comeon .5s;
+}
+
+@keyframes comeon {
+  0%{
+      opacity: 0;
+  }
+  100%{
+      opacity: 1;
+  }
 }
 
 .index-body{
