@@ -1,66 +1,51 @@
-.bgc-light{
-    background-color: var(--pri-col);
-}
-.bgc-dark{
-    background-color: var(--sec-col);
-}
-.light{
-    color: var(--pri-col);
-}
-.dark{
-    color: var(--sec-col);
-}
-.third{
-    background-color: var(--tri-col);
-}
 
-body{
-    background-color:var(--pri-col);
-}
 
 .navbar{
+    padding-left: 1rem;
     transition: 10ms all;
     position: sticky;
-    top:0;
+    background-color: var(--sec-col);
+    top:0px;
     box-shadow: 0 5px 10px rgba(0,0,0,0.5);
     z-index: 1000;
+}
+
+.bg-cdark{
+    background-color: var(--sec-col);
+    color: var(--pri-col);
+}
+
+.bg-clight{
+    background-color: var(--pri-col);
+    color: var(--sec-col);
 }
 
 .navbar-brand{
     font-size: 2rem;
     font-weight: 600;
+    color: white;
 }
 
 .navbar-brand:hover{
     color: var(--pri-col);
 }
 
-.nav-link{
-    color: var(--pri-col);
+.w-10{
+   margin: auto;
+    width: 9rem;
 }
-.nav-link:hover{
-    color: white;
-}
-
-.navbar a:hover{
-    color: white;
-}
-
-.btn-cdark{
-    border-radius: 0.375rem;
-    background-color: var(--sec-col);
-    color: var(--pri-col);
- }
- 
- .btn-cdark:hover{
-    border: 1px solid var(--sec-col);
-     /* background-color: var(--pri-col);
-     color: var(--blue); */
+#navbar ul span a{
+    width: 55%;
+    transition: .5s all;
  }
 
- .navlogoutbtn:hover{
-    background-color: red;
+#navbar ul span a:hover{
+   width: 65%;
+   transition: .5s all;
 }
-.navlogoutbtn:hover .nav-link{
-    color:  #dfe6e9;
-}
+
+#navbar ul span a.active{
+    width: 80%;
+    transition: .5s all;
+ }
+

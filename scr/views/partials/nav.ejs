@@ -1,34 +1,36 @@
 <link rel="stylesheet" href="../css/navbar.css">
 
-  <nav class="navbar navbar-expand-lg  bgc-dark justify-content-center">
-    <div class="container-fluid">
-      <a class="navbar-brand col-lg-2 light" href="/">Text-Tools</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <nav class="navbar navbar-expand-lg" id="navbar">
+    <div class="container-fluid row">
+      <a class="navbar-brand col-4 w-25" href="/">Text-Tools</a>
+      <button class="navbar-toggler col-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div class="collapse navbar-collapse m-lg-0 col-lg-10 row justify-content-center" id="navbarSupportedContent">
 
-        <ul class="container-fluid navbar-nav me-auto mb-2 mb-lg-0 col-12">
+      <div class="collapse navbar-collapse col-6" id="navbarSupportedContent">
 
-          <div class="container-fluid col-lg-8 row justify-content-center">
+        <ul class="container navbar-nav row-12 p-auto justify-content-centre">
 
-            <a href="/#services" class="btn col w-25 btn-cdark ms-1">services</a>
-            <a href="/#about" class="btn  col w-25 btn-cdark ms-1 ">about</a>
-            <a href="/userpage" class="btn col w-25 btn-cdark ms-1">User Account</a>
-
-          </div>
-          <div class="col-lg-4  col-md-12 text-end p-lg-0 ">
-            <a href="/logout" class="btn btn-outline-danger m-auto">Log Out</a>
-          </div>
+          <span class="col-lg-3 w-25 m-auto mb-1 text-center"> <a href="/#services" class="btn btn-outline-light" onclick="changetab()">services</a> </span> 
+          <span class="col-lg-3 w-25 m-auto mb-1 text-center"> <a href="/#about" class="btn btn-outline-light"  onclick="changetab()">about</a> </span>
+          <span class="col-lg-3 w-25 m-auto mb-1 text-center"> <a href="/userpage" class="btn btn-outline-light" id="userpagelink" onclick="changetab()">User Account</a> </span>
+          <span class="col-lg-3 w-25 m-auto mb-1 text-center"> <a href="/logout" class="btn btn-outline-danger"  onclick="changetab()">Log Out</a> </span>
+            
+          </ul>
           
-        </ul>
-        
       </div>
     </div>
   </nav>
 
+<script>
+   
+   function changetab(){
+  document.querySelectorAll('#navbar ul a').forEach(function(item){
+    item.classList.remove('active');
+  })
+  event.target.classList.add('active');
+   }
 
-
-
+</script>
     
  

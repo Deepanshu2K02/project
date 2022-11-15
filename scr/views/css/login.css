@@ -39,7 +39,7 @@ body::-webkit-scrollbar {
  }
  
  .btn-cdark:hover{
-     background-color: var(--green);
+     background-color: var(--blue);
      color: var(--pri-col);
  }
 
@@ -193,15 +193,10 @@ a:hover{
 }
 
 .hide{
-    visibility: hidden;
-    z-index: -1100;
     opacity: 0;
+    transition: 1s all;
 }
-.unhide{
-    visibility: visible;
-    z-index: 0;
-    opacity: 1;
-}
+
 
 footer{
     bottom: 0;

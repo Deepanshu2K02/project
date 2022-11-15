@@ -14,10 +14,11 @@
   </head>
 <body>
     <div class="container-fluid">
+
   <% if(code === 'login'){ %> 
     <div class="loginBox unhide" > 
       <% } else { %> 
-    <div class="login hide" > 
+    <div class="loginBox hide" > 
       <% } %> 
     <img class="user" src="images/social-media.gif" height="150px" width="150px">
 
@@ -25,7 +26,8 @@
         <div class="warning">
           <% if(error === ""){%> 
           <% }else{%>
-            Wrong Creditionals
+             <% let s = error.slice(9);%>
+             <%=s%>
            <% } %> 
         </div>
 
@@ -57,6 +59,14 @@
       <img class="user" src="images/social-media.gif" height="150px" width="150px">
   
           <h3>Create Account</h3>
+
+          <div class="warning">
+            <% if(error === ""){%> 
+            <% }else{%>
+               <% let s = error.slice(9);%>
+               <%=s%>
+             <% } %> 
+          </div>
   
           <form action="/signup" method="post" >
                 

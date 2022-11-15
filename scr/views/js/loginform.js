@@ -7,3 +7,4 @@ function changepage(){
     signupBox.classList.toggle("hide");
     loginBox.classList.toggle("hide");
 }
+
