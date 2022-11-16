@@ -92,7 +92,8 @@ h3{
 
 .loginBox input,.signupBox input{
     width: 100%;
-    margin-bottom: 1rem
+    margin-bottom: 1rem;
+    text-transform: none;
 }
 
 
@@ -103,7 +104,8 @@ h3{
     height: 4rem;
     color: var(--blue);
     background: transparent;
-    font-size: 2.2rem;
+    font-size: 2rem;
+    text-transform: none;
     padding-left: 1.4rem;
     box-sizing: border-box;
 }
@@ -115,7 +117,8 @@ h3{
     height: 4rem;
     color: var(--blue);
     background: transparent;
-    font-size: 2.2rem;
+    font-size: 2rem;
+    text-transform: none;
     padding-left: 1.4rem;
     box-sizing: border-box;
 }
@@ -125,24 +128,25 @@ button[type = "submit"]{
 }
 
 .loginBox input[type="email"]:hover, .loginBox input[type="password"]:hover{
-    color: var(--sec-col); 
-    }
-
-    .signupBox input[type="email"]:hover,.signupBox input[type="text"]:hover, .signupBox input[type="password"]:hover{
         color: var(--sec-col); 
-        }
+}
+
+.signupBox input[type="email"]:hover,.signupBox input[type="text"]:hover, .signupBox input[type="password"]:hover{
+        color: var(--sec-col); 
+}
   
     
 .loginBox input[type="email"]:focus, .loginBox input[type="password"]:focus{
-    font-size: 2.2rem;
     text-transform: none;
-    border-bottom:0.1rem solid var(--blue)
+    border-bottom:0.1rem solid var(--blue);
+    color: var(--sec-col); 
 }
 
 .signupBox input[type="email"]:focus,.signupBox input[type="text"]:focus, .signupBox input[type="password"]:focus{
-    font-size: 2.2rem;
     text-transform: none;
-    border-bottom: 0.1rem solid var(--blue)
+    border-bottom: 0.1rem solid var(--blue);
+    color: var(--sec-col); 
+
 }
 
 
@@ -150,7 +154,7 @@ button[type = "submit"]{
 
 
 .inputBox span{
-    position: absolute;  top: 10px;
+    position: absolute;  top: 1rem;
     color: #262626
 }
 

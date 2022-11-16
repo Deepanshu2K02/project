@@ -1,5 +1,6 @@
 import { createRequire } from "module";
 const require = createRequire(import.meta.url);
+require("dotenv").config();
 import path from "path";
 import { fileURLToPath } from "url";
 
@@ -8,12 +9,13 @@ const __dirname = path.dirname(__filename);
 const express = require("express");
 const http = require("https");
 const bodyparser = require("body-parser");
-require("dotenv").config();
 const app = express();
 
 import { initializeApp } from "firebase/app";
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut, updateProfile,signInWithPopup, GoogleAuthProvider, } from "firebase/auth";
 import { getStorage, ref, uploadString, getDownloadURL, listAll, } from "firebase/storage";
+import { promiseImpl } from "ejs";
+import multer from "multer";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBR2x1LfeDAgPo2ezzOtCk9xOUcQXFsO3k",
@@ -35,7 +37,6 @@ app.use(express.static(path.join(__dirname, "/views")));
 app.set('views',path.join(__dirname,'/views'));
 app.use(bodyparser.urlencoded());
 app.use(bodyparser.json());
-
 /**********************************FUNCTIONS*******************************************************/
 
 const filedownload = async (file_path) => {
@@ -200,7 +201,7 @@ app.get("/userpage", async (req, res) => {
 });
 
 app.get("/error", (req, res) => {
-  res.write("You are getting error , find cause for it");
+  res.write(req.message);
   res.end();
 });
 
