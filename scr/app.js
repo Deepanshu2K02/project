@@ -395,7 +395,7 @@ app.post("/translate", (request, response) => {
         chunks.push(chunk);
       });
 
-      res.on("end", function () {
+      res.on("end", ()=>{
         const body = Buffer.concat(chunks);
         const translatedtext = JSON.parse(body)[0].translations[0].text;
 
