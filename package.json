@@ -4,7 +4,7 @@
   "description": "Name : Kartik Hatwar University : IIT(ISM) Dhanbad  Department : Electrical Engineering",
   "main": "scr/app.js",
   "scripts": {
-    "test": "node scr/app.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
     "start" : "node scr/app.js"
   },
   "type": "module",
