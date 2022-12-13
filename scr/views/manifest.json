@@ -1,0 +1,32 @@
+{
+    "short_name" : "TT",
+    "name" : "Text-Tools",
+    "description": "Text-Tools helps users in daily tasks",
+    "start_url": "/",
+    "display" : "standalone",
+    "background_color" : "white",
+    "theme_color" : "black",
+    "orientation":"portrait-primary",
+    "icons":[
+       {
+        "src" : "/images/TT144.png",
+        "type" : "image/png",
+        "sizes" : "144x144"
+       },
+       {
+        "src" : "/images/TT192.png",
+        "type" : "image/png",
+        "sizes" : "192x192"
+       },
+       {
+        "src" : "/images/TT256.png",
+        "type" : "image/png",
+        "sizes" : "256x256"
+       },
+       {
+        "src" : "/images/TT512.png",
+        "type" : "image/png",
+        "sizes" : "512x512"
+       }
+    ]
+}

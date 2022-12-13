@@ -658,7 +658,7 @@ app.post("/txtTospeech", (request, response) => {
 });
 
 /****************************TEXT TO SPEECH FUNCTIONALITY**************************/
-let port = process.env.PORT || 8080;
+let port = process.env.PORT || 8000;
 
 app.listen(port, () => {
   console.log(`http://localhost:${port}/`);

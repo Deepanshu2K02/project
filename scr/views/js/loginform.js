@@ -1,3 +1,4 @@
+
 let tosignuppage = document.querySelector('#tosignuppage');
 let tologinpage = document.querySelector('#tologinpage');
 let signupBox = document.querySelector('.signupBox');
@@ -7,4 +8,5 @@ function changepage(){
     signupBox.classList.toggle("hide");
     loginBox.classList.toggle("hide");
 }
+
 
