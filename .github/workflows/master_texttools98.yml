@@ -52,5 +52,5 @@ jobs:
         with:
           app-name: 'texttools98'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_4BD2786F02CE43CEA1430AF7DCA99251 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9C98F7CC5AB54457AC64DCB225F7E7D7 }}
           package: .
