@@ -4,17 +4,24 @@ require("dotenv").config();
 import path from "path";
 import { fileURLToPath } from "url";
 
+
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const express = require("express");
+const cookieParser = require('cookie-parser')
+const jwt = require('jsonwebtoken');
 const http = require("https");
 const bodyparser = require("body-parser");
 const app = express();
+const bcrypt = require("bcryptjs");
 
+import { mongoose } from "./db/conn.js";
+import { User } from "./models/userSignUp.js";
+import {Uauth} from "./middleware/auth.js";
 import { initializeApp } from "firebase/app";
 import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut, updateProfile,signInWithPopup, GoogleAuthProvider, } from "firebase/auth";
 import { getStorage, ref, uploadString, getDownloadURL, listAll, } from "firebase/storage";
-import { promiseImpl } from "ejs";
 import multer from "multer";
 
 const firebaseConfig = {
@@ -34,6 +41,8 @@ provider.addScope('https://www.googleapis.com/auth/contacts.readonly');
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "/views")));
+app.use(cookieParser());
+// app.use(auth);
 app.set('views',path.join(__dirname,'/views'));
 app.use(bodyparser.urlencoded());
 app.use(bodyparser.json());
@@ -74,37 +83,46 @@ const allurlformpath = async (path) => {
   }
 };
 
-const savetostore = (file, path) => {
+const savetostore = async (file, path) => {
   try {
-    const storageRef = ref(storage, path);
-    uploadString(storageRef, file);
+    const storageRef =  ref(storage, path);
+    await uploadString(storageRef, file);
   } catch (error) {
     return error;
   }
 };
 
-const savetxt = (files, functionid) => {
+const savetxt = async (files, functionid,token) => {
   try {
-    const user = auth.currentUser;
 
+      if(!token) res.redirect('/loginpage');
+      else{
+        const genEmail = jwt.verify(token,process.env.SECRET);
+        const useremail = genEmail.email;
+
+        if(!useremail){
+          res.redirect('/loginpage');
+        }
+        else{
+ 
     if (functionid === "imgtotxt") {
       let { title, text } = files;
       const storageRef = ref(
         storage,
-        `users/${user.uid}/${functionid}/${title}.txt`
+        `users/${useremail}/${functionid}/${title}.txt`
       );
 
-      uploadString(storageRef, text);
+     await uploadString(storageRef, text);
     }
     if (functionid === "translation") {
       let orignaltext = files.orignaltext;
       let title = files.title;
       const storageRef1 = ref(
         storage,
-        `users/${user.uid}/${functionid}/${title}.txt`
+        `users/${useremail}/${functionid}/${title}.txt`
       );
 
-      uploadString(storageRef1, orignaltext);
+      await uploadString(storageRef1, orignaltext);
     }
 
     if (functionid === "summary") {
@@ -113,9 +131,9 @@ const savetxt = (files, functionid) => {
 
       const storageRef = ref(
         storage,
-        `users/${user.uid}/${functionid}/${title}.txt`
+        `users/${useremail}/${functionid}/${title}.txt`
       );
-      uploadString(storageRef, summary);
+      await uploadString(storageRef, summary);
     }
 
     if (functionid === "QnA") {
@@ -123,78 +141,109 @@ const savetxt = (files, functionid) => {
       let ans = files.ans;
       let file = que.concat("\n\n", "Answers : \n\n", ans);
 
-      savetostore(file, `users/${user.uid}/${functionid}/${files.que}.txt`);
+      await savetostore(file, `users/${useremail}/${functionid}/${files.que}.txt`);
     }
+  }
+}
   } catch (error) {
-    return error;
+    console.log(error);
   }
 };
 
 /*******************************FUNCTIONS*******************************************************/
 
 /*****************************************MAIN PAGES*******************************************/
-app.get("/", (req, res) => {
-  try {
-    let user = auth.currentUser;
-    if (user) {
-      res.render("index.ejs");
-    } else {
-      res.redirect("/loginpage");
-    }
-  } catch (error) {
-    res.redirect("/error");
+app.get('/',Uauth,(req,res)=>{
+  try{
+      res.render('index.ejs')
+  }
+  catch{
+    res.redirect('/error');
+  }
+})
+
+app.get("/loginpage",async (req, res) => {
+  try{
+      const token = req.cookies.token;
+      if(!token){
+        res.render("LoginPage", {
+          code: "login",
+          error: '',
+        });
+      }
+      else{
+        const result = await jwt.verify(token,process.env.SECRET);
+
+        if(result){
+          res.render('index.ejs')
+        }
+        else{
+          res.render("LoginPage", {
+            code: "login",
+            error: '',
+          });
+        }
+        }
+      }
+  catch{
+    res.redirect('/error');
   }
 });
 
-app.get("/loginpage", (req, res) => {
+
+
+app.get("/userpage",Uauth, async (req, res) => {
   try {
-    let user = auth.currentUser;
-    if (user) {
-      res.redirect("/userpage");
-    } else {
-      res.render("LoginPage.ejs", {
-        code: "login",
-        error: "",
-      });
-    }
-  } catch (error) {
-    res.redirect("/error");
-  }
-});
+      
+      let token = req.cookies.token;
 
-app.get("/userpage", async (req, res) => {
-  try {
-    const auth = getAuth();
-    const user = auth.currentUser;
-    if (user !== null) {
-      const displayName = user.displayName;
-      const email = user.email;
-      const photoURL = user.photoURL;
-      const emailVerified = user.emailVerified;
+      if(!token) res.redirect('/loginpage');
+      else{
+        const genEmail = jwt.verify(token,process.env.SECRET);
 
-      let imgtotxturls = allurlformpath(`users/${user.uid}/imgtotxt`);
+        if(!genEmail){
+          res.redirect('/loginpage');
+        }
+        else{
+        // genEmail = genEmail.email;
+        const useremail = genEmail.email;
+        
+        const user = await User.findOne({email : useremail});
 
-      let summaryurls = allurlformpath(`users/${user.uid}/summary`);
-
-      let QnAurls = allurlformpath(`users/${user.uid}/QnA`);
-
-      let translatedurls = allurlformpath(`users/${user.uid}/translation`);
-
-      let data = await Promise.all([imgtotxturls,summaryurls,QnAurls,translatedurls]);
-
-      res.render("User.ejs", {
-        displayName: displayName,
-        email: email,
-        photoURL: photoURL,
-        emailVerified: emailVerified,
-        imgtotxturls: data[0],
-        summaryurls: data[1],
-        QnAurls: data[2],
-        translatedurls: data[3],
-      });
-    } else {
-      res.redirect("/loginpage");
-    }
+        if(user){
+          const displayName = user.name || 'not found';
+          const email = user.email;
+          const contact = user.contact || 'not found';
+        
+    
+          let imgtotxturls = allurlformpath(`users/${user.email}/imgtotxt`);
+    
+          let summaryurls = allurlformpath(`users/${user.email}/summary`);
+    
+          let QnAurls = allurlformpath(`users/${user.email}/QnA`);
+    
+          let translatedurls = allurlformpath(`users/${user.email}/translation`);
+    
+          let data = await Promise.all([imgtotxturls,summaryurls,QnAurls,translatedurls]);
+    
+          res.render("User.ejs", {
+            displayName: displayName,
+            email: email,
+            contact : contact,
+            imgtotxturls: data[0],
+            summaryurls: data[1],
+            QnAurls: data[2],
+            translatedurls: data[3],
+          });
+        }
+        else{
+          res.send('user not found');
+        }
+      
+        }
+      }
+      
+    
   } catch (error) {
     res.redirect("/error");
   }
@@ -210,97 +259,157 @@ app.get("/error", (req, res) => {
 /***************************************   USER ACTIONS   ***********************************************************/
 
 
-app.post("/signup", (req, res) => {
+app.post("/signup", async (req, res) => {
   try {
-    let email = req.body.semail;
-    let name = req.body.sname;
-    let password = req.body.spassword;
+  
+    let Password = req.body.spassword;
+    let Cpassword = req.body.spassword2;
 
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((cred) => {
-        updateProfile(auth.currentUser, {
-          displayName: name,
-          photoURL: path.join(__dirname, "/views/images/user.png"),
-        })
-          .then(() => {
-            res.redirect("/");
-          })
-          .catch((error) => {
-            res.redirect("/error");
-          });
-      })
-      .catch((err) => {
+    if(Password === Cpassword){
+      const Register_User = new User({
+        name : req.body.sname,
+        email : req.body.semail,
+        contact : req.body.scontact,
+        password : req.body.spassword,
+      });
+
+      const token = await Register_User.generateAuthToken();
+
+      const result = await Register_User.save();
+
+      res.cookie('token',token,{
+        httpOnly: true,
+        maxAge : 24*60*60*1000, //  60 seconds
+      });
+      res.redirect('/');
+    }
+    else{
+      res.render("LoginPage", {
+        code: "signup",
+        error: ' ********Passwords are Not Matching',
+      });
+    }
+ 
+
+    // createUserWithEmailAndPassword(auth, email, password)
+    //   .then((cred) => {
+    //     updateProfile(auth.currentUser, {
+    //       displayName: name,
+    //       photoURL: path.join(__dirname, "/views/images/user.png"),
+    //     })
+    //       .then(() => {
+    //         res.redirect("/");
+    //       })
+    //       .catch((error) => {
+    //         res.redirect("/error");
+    //       });
+    //   })
+    //   .catch((err) => {
+    //     res.render("LoginPage", {
+    //       code: "signup",
+    //       error: err.message,
+    //     });
+    //   });
+  } catch (err) {
+    console.log(err);
+    if(err.code){
+      if(err.code == 11000){
         res.render("LoginPage", {
           code: "signup",
-          error: err.message,
+          error: '*********'+'Users one or more credentials already exists',
         });
+      }
+    }
+    else{
+      res.render("LoginPage", {
+        code: "signup",
+        error: '********'+err.message,
       });
-  } catch (error) {
-    res.redirect("/error");
+    }
+
   }
 });
 
-app.post("/login", (req, res) => {
-  let email = req.body.email;
-  let password = req.body.password;
+app.post("/login",async (req, res) => {
+ try{
+  const email = req.body.email;
+  const password = req.body.password;
 
-  signInWithEmailAndPassword(auth, email, password)
-    .then((cred) => {
-      // console.log(cred.user);
-      res.redirect("/");
-    })
-    .catch((err) => {
-      res.render("LoginPage", {
-        code: "login",
-        error: err.message,
-      });
+   const usermail = await User.findOne({email : email});
+
+   if(!usermail){
+    res.render("LoginPage", {
+      code: "login",
+      error: '*********'+'Wrong Credentials',
     });
-});
+   }
+   else{
 
-app.post("/updateuser", (req, res) => {
-  let name = req.body.name;
-  let photoUrl = req.body.photoUrl;
+    const isMatch = await bcrypt.compare(password,usermail.password);
+   
+    const token = await usermail.generateAuthToken();
 
-  if (!name) name = auth.currentUser.displayName;
-  if (!photoUrl) photoUrl = auth.currentUser.photoURL;
-
-  updateProfile(auth.currentUser, {
-    displayName: name,
-    photoURL: photoUrl,
-  })
-    .then(() => {
-      console.log("updated!");
-      res.render("User.ejs", {
-        user: auth.currentUser,
+    if(isMatch){ 
+      res.cookie('token',token,{
+        httpOnly: true,
+        maxAge : 24*60*60*1000, //  24 hrs
+        // secure: true
       });
-    })
-    .catch((error) => {
-      console.log(error);
-    });
+      res.redirect(`/`)
+    }  
+    else{
+     res.render("LoginPage", {
+       code: "login",
+       error: '*********'+'Wrong Credentials',
+     });
+    }
+   }
+
+ }catch(err){
+  res.render("LoginPage", {
+    code: "login",
+    error: '*********'+ err.message,
+  });
+ }
+
+
+  
+  
+
+  // signInWithEmailAndPassword(auth, email, password)
+  //   .then((cred) => {
+  //     // console.log(cred.user);
+  //     res.redirect("/");
+  //   })
+  //   .catch((err) => {
+  //     res.render("LoginPage", {
+  //       code: "login",
+  //       error: err.message,
+  //     });
+  //   });
 });
 
 app.get("/logout", (req, res) => {
-  signOut(auth)
-    .then(() => {
-      res.redirect("/loginpage");
-    })
-    .catch((err) => {
-      console.log(err);
-      res.end();
-    });
+     try {
+       res.clearCookie('token');
+       res.redirect("/loginpage");
+     } catch (error) {
+        res.redirect("/error");
+      
+     }
 });
 
 /***************************************   USER ACTIONS   ***********************************************************/
 
 /***************************IMAGE TO TEXT FUNCTIONALITY***************************/
 
-app.get("/imgtotxt", (req, res) => {
+app.get("/imgtotxt",Uauth,(req, res) => {
   res.render("imgtotxt.ejs", {
     gottext: null,
   });
 });
 
-app.post("/imgtotxt", (request, response) => {
+app.post("/imgtotxt",Uauth, (request, response) => {
   let imgurl = request.body.imgurl;
 
   const options = {
@@ -334,9 +443,8 @@ app.post("/imgtotxt", (request, response) => {
   req.end();
 });
 
-app.post("/saveimgtotxt", (req, res) => {
-  let user = auth.currentUser;
-  if (user) {
+app.post("/saveimgtotxt",Uauth,(req, res) => {
+   try {
     const texttitle = req.body.texttitle;
     const text = req.body.text;
 
@@ -345,21 +453,24 @@ app.post("/saveimgtotxt", (req, res) => {
       text: text,
     };
 
-    savetxt(file, "imgtotxt");
+    savetxt(file, "imgtotxt",req.cookies.token);
 
     res.render("imgtotxt.ejs", {
       gottext: text,
     });
-  } else {
-    res.redirect("/loginpage");
-  }
+   } catch (err) {
+      res.redirect('/error');
+   }
+    
+    
+  
 });
 
 /***************************IMAGE TO TEXT FUNCTIONALITY***************************/
 
 /***************************TRANSLATION FUNCTIONALITY*****************************/
 
-app.get("/translate", (req, res) => {
+app.get("/translate",Uauth, (req, res) => {
   try {
     res.render("TranslatePage.ejs", {
       translatedtext: null,
@@ -370,7 +481,7 @@ app.get("/translate", (req, res) => {
   }
 });
 
-app.post("/translate", (request, response) => {
+app.post("/translate", Uauth,(request, response) => {
   try {
     let text = request.body.text;
     let lang = request.body.lang;
@@ -415,10 +526,9 @@ app.post("/translate", (request, response) => {
   }
 });
 
-app.post("/savetranslation", (req, res) => {
+app.post("/savetranslation",Uauth, (req, res) => {
   try {
-    let user = auth.currentUser;
-    if (user) {
+   
       let orignaltext = req.body.orignaltext;
       let translatedtext = req.body.translatedtext;
       let title = req.body.title;
@@ -430,11 +540,8 @@ app.post("/savetranslation", (req, res) => {
           orignaltext: orignaltext,
           title: title,
         },
-        "translation"
+        "translation",req.cookies.token
       );
-    } else {
-      res.redirect("/loginpage");
-    }
 
     res.redirect("/translate");
   } catch (error) {
@@ -446,13 +553,13 @@ app.post("/savetranslation", (req, res) => {
 
 /****************************SUMMARY**********************************************/
 
-app.get("/summary", (req, res) => {
+app.get("/summary",Uauth, (req, res) => {
   res.render("Summary.ejs", {
     text: null,
   });
 });
 
-app.post("/summary", (request, response) => {
+app.post("/summary",Uauth, (request, response) => {
   let para = request.body.para;
 
   const options = {
@@ -493,7 +600,7 @@ app.post("/summary", (request, response) => {
   req.end();
 });
 
-app.post("/savesummary", (req, res) => {
+app.post("/savesummary",Uauth, (req, res) => {
   let title = req.body.title;
   let summary = req.body.summary;
 
@@ -505,7 +612,7 @@ app.post("/savesummary", (req, res) => {
   let user = auth.currentUser;
 
   if (user) {
-    savetxt(file, "summary");
+    savetxt(file, "summary",req.cookies.token);
     res.render("summary.ejs", {
       text: null,
     });
@@ -518,7 +625,7 @@ app.post("/savesummary", (req, res) => {
 
 /****************************QUESTIONS AND ANSWERS*********************************/
 
-app.get("/QnA", (req, res) => {
+app.get("/QnA", Uauth,(req, res) => {
   res.render("QnA.ejs", {
     que: "",
     ans: null,
@@ -526,7 +633,7 @@ app.get("/QnA", (req, res) => {
   });
 });
 
-app.post("/QnA", (request, response) => {
+app.post("/QnA",Uauth, (request, response) => {
   try {
     let que = request.body.que;
 
@@ -574,7 +681,7 @@ app.post("/QnA", (request, response) => {
   }
 });
 
-app.post("/saveans", (req, res) => {
+app.post("/saveans",Uauth, (req, res) => {
   let que = req.body.getque;
   let ans = req.body.ans;
   let user = auth.currentUser;
@@ -582,7 +689,7 @@ app.post("/saveans", (req, res) => {
   // console.log(que,ans);
 
   if (user) {
-    savetxt({ que: que, ans: ans }, "QnA");
+    savetxt({ que: que, ans: ans }, "QnA",req.cookies.token);
     res.render("QnA.ejs", {
       que: que,
       ans: null,
@@ -596,13 +703,13 @@ app.post("/saveans", (req, res) => {
 
 /****************************TEXT TO SPEECH FUNCTIONALITY**************************/
 
-app.get("/txtTospeech", (req, res) => {
+app.get("/txtTospeech",Uauth, (req, res) => {
   res.render("TxtToSpeech.ejs", {
     link: null,
   });
 });
 
-app.post("/txtTospeech", (request, response) => {
+app.post("/txtTospeech",Uauth, (request, response) => {
   let voicecode = request.body.voice;
 
   const qs = require("querystring");

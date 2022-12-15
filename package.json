@@ -5,11 +5,13 @@
   "main": "scr/app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start" : "node scr/app.js"
+    "start": "node scr/app.js"
   },
   "type": "module",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.1",
+    "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.3",
     "ejs": "^3.1.8",
     "emulators": "^0.73.8",
@@ -19,6 +21,8 @@
     "firebase-functions": "^4.0.2",
     "http": "^0.0.1-security",
     "iso-639-1": "^2.1.15",
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^6.8.0",
     "multer": "^1.4.5-lts.1",
     "node-fetch": "^2.6.1",
     "nodemon": "^2.0.20",

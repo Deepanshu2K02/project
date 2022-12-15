@@ -9,4 +9,3 @@ function changepage(){
     loginBox.classList.toggle("hide");
 }
 
-
