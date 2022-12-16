@@ -10,9 +10,20 @@ const cookieParser = require('cookie-parser')
 const bodyparser = require("body-parser");
 const app = express();
 
+import mongoose from "mongoose";
+
+mongoose.set('strictQuery', false);
+//Set up default mongoose connection
+
+const DB = process.env.DATABASE || "mongodb+srv://kartikhatwar98:9371865060k@cluster0.w3714lm.mongodb.net/Text-Tools?retryWrites=true&w=majority";
+
+mongoose.connect(DB, { useNewUrlParser: true }).then(()=>{
+    // console.log('Connected');
+})
 
 
-import { mongoose } from "./db/db.js";
+
+// import { mongoose } from "./db/db.js";
 import { Uauth } from "./middleware/auth.js";
 import { logout_router } from "./routes/logout.js";
 import { imgtotxt } from "./routes/imgtotxt.js";

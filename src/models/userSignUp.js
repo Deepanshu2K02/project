@@ -1,12 +1,22 @@
 import { createRequire } from "module";
 import validator from 'validator';
 import bcrypt from 'bcryptjs';
-import { mongoose } from "../db/db.js";
+// import { mongoose } from "../db/db.js";
 import jwt from "jsonwebtoken";
 
 import env from "dotenv";
 env.config();
 
+import mongoose from "mongoose";
+
+mongoose.set('strictQuery', false);
+//Set up default mongoose connection
+
+const DB = process.env.DATABASE || "mongodb+srv://kartikhatwar98:9371865060k@cluster0.w3714lm.mongodb.net/Text-Tools?retryWrites=true&w=majority";
+
+mongoose.connect(DB, { useNewUrlParser: true }).then(()=>{
+    // console.log('Connected');
+})
 
 const userSchema = new mongoose.Schema({
     name : {
