@@ -19,7 +19,7 @@ const userSchema = new mongoose.Schema({
     contact : {
         type : String,
         unique : true,
-        minLength : [10,"********Invalid Contact"]
+        minLength : [10,"*********Invalid Contact"]
     },
     password : {
         type : String,
