@@ -44,7 +44,7 @@ app.set('views',path.join(__dirname,'/views'));
 app.use(bodyparser.urlencoded({extended : true}));
 app.use(bodyparser.json());
 
-app.get('/',Uauth,(req,res)=>{
+app.get('/',(req,res)=>{
   try{
       res.render('index.ejs')
   }
