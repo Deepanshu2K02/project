@@ -1,11 +1,13 @@
 import { createRequire } from "module";
 import bcrypt from 'bcryptjs';
-const require = createRequire(import.meta.url);
-
-const mongoose = require('mongoose');
-const jwt = require('jsonwebtoken');
 import env from 'dotenv';
+import mongoose from "mongoose";
+import jwt from 'jsonwebtoken';
+import { connecttoDB } from "../db/db.js";
+
 env.config();
+
+await connecttoDB();
 
 const userSchema = new mongoose.Schema({
     name : {
@@ -56,10 +58,6 @@ userSchema.pre("save", async function (next){
 
 });
 
-const connecttoDB = async ()=>{
-    const result = await mongoose.connect(process.env.DATABASE, { useNewUrlParser: true});
-  }
-  
-await connecttoDB();
+
 
 export const User = new mongoose.model("User",userSchema);

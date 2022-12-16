@@ -1,8 +1,4 @@
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
-
-const jwt = require("jsonwebtoken");
-import { User } from "../models/userSignUp.js";
+import jwt from "jsonwebtoken";
 
 export const Uauth = async (req,res,next)=>{
    try {

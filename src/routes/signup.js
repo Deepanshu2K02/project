@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { User } from "../models/userSignUp.js";
-import mongoose from "mongoose";
 import env from 'dotenv';
+import { connecttoDB } from "../db/db.js";
 env.config();
 
 export const signup_router= Router()
@@ -15,7 +15,7 @@ signup_router.post("/",async (req, res) => {
   
       if(Password === Cpassword){
 
-        const result = await mongoose.connect(process.env.DATABASE, { useNewUrlParser: true});
+        const result = await connecttoDB();
 
         const Register_User = new User({
           name : req.body.sname,
