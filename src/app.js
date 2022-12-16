@@ -15,7 +15,7 @@ import mongoose from "mongoose";
 mongoose.set('strictQuery', false);
 //Set up default mongoose connection
 
-const DB = process.env.DATABASE || "mongodb+srv://kartikhatwar98:9371865060k@cluster0.w3714lm.mongodb.net/Text-Tools?retryWrites=true&w=majority";
+const DB = "mongodb+srv://kartikhatwar98:9371865060k@cluster0.w3714lm.mongodb.net/Text-Tools?retryWrites=true&w=majority";
 
 mongoose.connect(DB, { useNewUrlParser: true }).then(()=>{
     // console.log('Connected');
@@ -68,8 +68,8 @@ app.use("/summary",Uauth,summary);
 app.use("/QnA", Uauth, QnA);
 app.use("/txtTospeech",Uauth, txtTospeech);
 
-let port = process.env.PORT || 8000;
+let port = process.env.PORT || 4000;
 
 app.listen(port, () => {
-  // console.log(`http://localhost:${port}/`);
+  console.log(`http://localhost:${port}/`);
 });
