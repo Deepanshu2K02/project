@@ -15,12 +15,6 @@ const userSchema = new mongoose.Schema({
         type: String,
         required : true,
         unique: true,
-
-        validate(value){
-            if(!validator.isEmail(value)){
-                throw new Error('Email Id is not Valid');
-            }
-        }
     },
     contact : {
         type : String,
