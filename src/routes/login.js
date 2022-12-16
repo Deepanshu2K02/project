@@ -5,6 +5,8 @@ import env from 'dotenv';
 import { connecttoDB } from '../db/db.js';
 env.config();
 
+await connecttoDB();
+
 export const login_router  = Router();
 
 login_router.post("/",async (req, res) => {
