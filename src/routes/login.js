@@ -26,6 +26,8 @@ login_router.post("/",async (req, res) => {
        const isMatch = await bcrypt.compare(password,usermail.password);
       
        const token = await usermail.generateAuthToken();
+
+       console.log(token);
    
        if(isMatch){ 
         res.clearCookie('token');

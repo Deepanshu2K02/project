@@ -55,10 +55,11 @@ const userSchema = new mongoose.Schema({
 userSchema.methods.generateAuthToken = async function(){
     try {
         const gentoken = await jwt.sign(JSON.stringify({email :this.email}),process.env.SECRET);
-        this.tokens = this.tokens.concat( { token:gentoken });
+        console.log(gentoken);
+        this.tokens = this.tokens.concat( { token: gentoken });
         return gentoken;
     } catch (error) {
-        console.log(error);
+        console.log('i am sending error ' ,error);
         return error;
     }
 }
