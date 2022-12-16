@@ -2,13 +2,14 @@
   "name": "text-tools",
   "version": "1.0.0",
   "description": "Name : Kartik Hatwar University : IIT(ISM) Dhanbad  Department : Electrical Engineering",
-  "main": "scr/app.js",
+  "main": "src/app.js",
   "scripts": {
     "start": "node public/app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "module",
   "dependencies": {
+    "mongoose": "^6.8.0",
     "bcryptjs": "^2.4.3",
     "body-parser": "^1.20.1",
     "cookie-parser": "^1.4.6",
@@ -22,7 +23,6 @@
     "http": "^0.0.1-security",
     "iso-639-1": "^2.1.15",
     "jsonwebtoken": "^8.5.1",
-    "mongoose": "^6.8.0",
     "multer": "^1.4.5-lts.1",
     "node-fetch": "^2.6.1",
     "nodemon": "^2.0.20",
