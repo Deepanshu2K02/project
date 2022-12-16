@@ -1,7 +1,6 @@
 import { createRequire } from "module";
 import validator from 'validator';
 import bcrypt from 'bcryptjs';
-import { stringify } from "querystring";
 const require = createRequire(import.meta.url);
 
 const mongoose = require('mongoose');
