@@ -9,15 +9,19 @@ const express = require("express");
 const cookieParser = require('cookie-parser')
 const bodyparser = require("body-parser");
 const app = express();
-
 const mongoose = require('mongoose');
+
 mongoose.set('strictQuery', false);
 
 const DB = process.env.DATABASE || "mongodb+srv://kartikhatwar98:9371865060k@cluster0.w3714lm.mongodb.net/Text-Tools?retryWrites=true&w=majority";
 
-mongoose.connect(DB, { 
-    useNewUrlParser: true 
-})
+const connecttoDB = async ()=>{
+  const result = await mongoose.connect(DB, { useNewUrlParser: true});
+}
+
+await connecttoDB();
+
+
 
 import {Uauth} from "./middleware/auth.js";
 import { logout_router } from "./routes/logout.js";

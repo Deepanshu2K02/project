@@ -1,14 +1,18 @@
 import bcrypt from 'bcryptjs';
 import { User } from "../models/userSignUp.js";
-
-
 import { Router } from "express";
+import mongoose from 'mongoose';
+import env from 'dotenv';
+env.config();
+
 export const login_router  = Router();
 
 login_router.post("/",async (req, res) => {
     try{
-     const email = req.body.email;
-     const password = req.body.password;
+      const email = req.body.email;
+      const password = req.body.password;
+
+      await mongoose.connect(process.env.DATABASE, { useNewUrlParser: true})
    
       const usermail = await User.findOne({email : email});
    
