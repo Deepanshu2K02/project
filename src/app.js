@@ -30,7 +30,7 @@ app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "/views")));
 app.use(cookieParser());
 app.set('views',path.join(__dirname,'/views'));
-app.use(bodyparser.urlencoded());
+app.use(bodyparser.urlencoded({extended : true}));
 app.use(bodyparser.json());
 
 app.get('/',Uauth,(req,res)=>{

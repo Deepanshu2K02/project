@@ -1,5 +1,7 @@
 import { Router } from "express";
 export const loginpage = Router();
+import env from "dotenv";
+env.config();
 
 loginpage.get('/',async (req, res) => {
     try{

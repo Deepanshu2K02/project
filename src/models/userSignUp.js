@@ -4,6 +4,9 @@ import bcrypt from 'bcryptjs';
 import { mongoose } from "../db/db.js";
 import jwt from "jsonwebtoken";
 
+import env from "dotenv";
+env.config();
+
 
 const userSchema = new mongoose.Schema({
     name : {

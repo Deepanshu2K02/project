@@ -2,6 +2,8 @@ import { Router } from "express";
 import jwt from "jsonwebtoken";
 import { User } from "../models/userSignUp.js";
 import { allurlformpath } from "../functions/functions.js";
+import env from "dotenv";
+env.config();
 
 export const userpage = Router();
 

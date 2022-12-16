@@ -1,4 +1,6 @@
 import jwt from "jsonwebtoken";
+import env from "dotenv";
+env.config();
 
 export const Uauth = async (req,res,next)=>{
    try {

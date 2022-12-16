@@ -2,6 +2,8 @@ import express  from "express";
 export const txtTospeech = express.Router();
 import http from 'https';
 import qs from 'querystring';
+import env from "dotenv";
+env.config();
 
 txtTospeech
 .get('/', (req, res) => {

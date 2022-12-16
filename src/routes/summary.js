@@ -2,6 +2,8 @@ import express  from "express";
 export const summary = express.Router();
 import http from 'https';
 import { savetxt } from "../functions/functions.js";
+import env from "dotenv";
+env.config();
 
 summary
 .get('/', (req, res) => {

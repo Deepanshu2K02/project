@@ -2,6 +2,8 @@ import express  from "express";
 export const translate = express.Router();
 import http from 'https';
 import { savetxt } from "../functions/functions.js";
+import env from "dotenv";
+env.config();
 
 translate
 .get('/', (req, res) => {

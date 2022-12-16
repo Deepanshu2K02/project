@@ -10,6 +10,10 @@ const firebaseConfig = {
 
 import { initializeApp } from "firebase/app";
 import jwt from 'jsonwebtoken';
+
+import env from "dotenv";
+env.config();
+
 import { getStorage, ref, uploadString, getDownloadURL, listAll, } from "firebase/storage";
 initializeApp(firebaseConfig);
 const storage = getStorage();
@@ -27,7 +31,7 @@ export const filedownload = async (file_path) => {
           return null;
         });
     } catch (error) {
-      return null;
+         return error;
     }
   };
 
@@ -115,5 +119,6 @@ export const savetxt = async (files, functionid,token) => {
   }
     } catch (error) {
       console.log(error);
+      return error;
     }
   };
