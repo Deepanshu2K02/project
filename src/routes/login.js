@@ -1,11 +1,10 @@
 import bcrypt from 'bcryptjs';
-import { User } from "../models/userSignUp.js";
 import { Router } from "express";
 import env from 'dotenv';
-import { connecttoDB } from '../db/db.js';
+import { User } from "../models/userSignUp.js";
 env.config();
 
-await connecttoDB();
+
 
 export const login_router  = Router();
 
@@ -14,8 +13,6 @@ login_router.post("/",async (req, res) => {
       const email = req.body.email;
       const password = req.body.password;
        
-      await connecttoDB();
-   
       const usermail = await User.findOne({email : email});
    
       if(!usermail){

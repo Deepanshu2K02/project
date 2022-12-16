@@ -1,8 +1,16 @@
-import {connect}from "mongoose";
+import { createRequire } from "module";
+const require = createRequire(import.meta.url);
 
-const DB = process.env.DATABASE || "mongodb+srv://kartikhatwar98:9371865060k@cluster0.w3714lm.mongodb.net/Text-Tools?retryWrites=true&w=majority";
+import env from "dotenv";
+env.config();
 
-export const connecttoDB = async ()=>{
-    const result = await connect(DB, { useNewUrlParser: true});
-    }
 
+export const mongoose = require('mongoose');
+
+mongoose.set('strictQuery', false);
+//Set up default mongoose connection
+
+const DB = process.env.DATABASE;
+mongoose.connect(DB, { useNewUrlParser: true }).then(()=>{
+    // console.log('Connected');
+})

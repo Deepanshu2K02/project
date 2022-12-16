@@ -1,13 +1,9 @@
 import { createRequire } from "module";
+import validator from 'validator';
 import bcrypt from 'bcryptjs';
-import env from 'dotenv';
-import mongoose from "mongoose";
-import jwt from 'jsonwebtoken';
-import { connecttoDB } from "../db/db.js";
+import { mongoose } from "../db/db.js";
+import jwt from "jsonwebtoken";
 
-env.config();
-
-await connecttoDB();
 
 const userSchema = new mongoose.Schema({
     name : {
@@ -18,11 +14,17 @@ const userSchema = new mongoose.Schema({
         type: String,
         required : true,
         unique: true,
+
+        validate(value){
+            if(!validator.isEmail(value)){
+                throw new Error('Email Id is not Valid');
+            }
+        }
     },
     contact : {
         type : String,
         unique : true,
-        minLength : [10,"*********Invalid Contact"]
+        minLength : [10,"********Invalid Contact"]
     },
     password : {
         type : String,
@@ -56,8 +58,6 @@ userSchema.pre("save", async function (next){
     }
     next();
 
-});
-
-
+})
 
 export const User = new mongoose.model("User",userSchema);

@@ -9,10 +9,10 @@ const express = require("express");
 const cookieParser = require('cookie-parser')
 const bodyparser = require("body-parser");
 const app = express();
-import { connecttoDB } from "./db/db.js";
 
-await connecttoDB();
 
+
+import { mongoose } from "./db/db.js";
 import { Uauth } from "./middleware/auth.js";
 import { logout_router } from "./routes/logout.js";
 import { imgtotxt } from "./routes/imgtotxt.js";

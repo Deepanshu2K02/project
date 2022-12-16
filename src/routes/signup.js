@@ -1,7 +1,6 @@
 import { Router } from "express";
 import { User } from "../models/userSignUp.js";
 import env from 'dotenv';
-import { connecttoDB } from "../db/db.js";
 env.config();
 
 export const signup_router= Router()
@@ -14,8 +13,6 @@ signup_router.post("/",async (req, res) => {
       let Cpassword = req.body.spassword2;
   
       if(Password === Cpassword){
-
-        const result = await connecttoDB();
 
         const Register_User = new User({
           name : req.body.sname,
