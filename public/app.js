@@ -41,7 +41,7 @@ app.get('/',Uauth,(req,res)=>{
 app.get("/error", (req, res) => {
   res.write(req.message);
   res.end();
-});
+}); 
 
 app.use("/loginpage",loginpage);
 app.use("/userpage",Uauth,userpage);
