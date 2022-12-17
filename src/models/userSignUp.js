@@ -48,7 +48,7 @@ const userSchema = new mongoose.Schema({
 
 userSchema.methods.generateAuthToken = async function(){
     try {
-        const gentoken = await jwt.sign(JSON.stringify({email :this.email}),"Text-Tools_secret_key_CreatedBy_Kartik_Hatwar_for_registered_users");
+        const gentoken = await jwt.sign({email :this.email},"Text-Tools_secret_key_CreatedBy_Kartik_Hatwar_for_registered_users");
         return gentoken;
 
     } catch (error) {
