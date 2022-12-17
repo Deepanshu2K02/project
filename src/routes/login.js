@@ -37,7 +37,7 @@ login_router.post("/",async (req, res) => {
         })
 
 
-        //  res.redirect(`/`)
+         res.redirect(`/`)
        }  
        else{
         res.render("LoginPage", {
