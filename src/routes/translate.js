@@ -73,7 +73,7 @@ translate
             orignaltext: orignaltext,
             title: title,
           },
-          "translation",req.signedCookies.token
+          "translation",req.cookies.token
         );
   
       res.redirect("/translate");

@@ -57,7 +57,7 @@ imgtotxt
        text: text,
      };
  
-     savetxt(file, "imgtotxt",req.signedCookies.token);
+     savetxt(file, "imgtotxt",req.cookies.token);
  
      res.render("imgtotxt.ejs", {
        gottext: text,

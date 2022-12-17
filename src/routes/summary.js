@@ -60,7 +60,7 @@ summary
       summary: summary,
     };
   
-      savetxt(file, "summary",req.signedCookies.token);
+      savetxt(file, "summary",req.cookies.token);
       res.render("summary.ejs", {
         text: null,
       });

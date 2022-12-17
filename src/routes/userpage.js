@@ -10,11 +10,11 @@ export const userpage = Router();
 userpage.get('/', async (req, res) => {
     try {
         
-        let token = req.signedCookies.token;
+        let token = req.cookies.token;
   
         if(!token) res.redirect('/loginpage');
         else{
-          const genEmail = jwt.verify(token,process.env.SECRET);
+          const genEmail = jwt.verify(token,"Text-Tools_secret_key_CreatedBy_Kartik_Hatwar_for_registered_users");
   
           if(!genEmail){
             res.redirect('/loginpage');

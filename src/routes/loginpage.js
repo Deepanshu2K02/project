@@ -5,7 +5,7 @@ env.config();
 
 loginpage.get('/',async (req, res) => {
     try{
-        const token = req.signedCookies.token;
+        const token = req.cookies.token;
         if(!token){
           res.render("LoginPage", {
             code: "login",
@@ -13,7 +13,7 @@ loginpage.get('/',async (req, res) => {
           });
         }
         else{
-          const result = await jwt.verify(token,process.env.SECRET);
+          const result = await jwt.verify(token,"Text-Tools_secret_key_CreatedBy_Kartik_Hatwar_for_registered_users");
   
           if(result){
             res.render('index.ejs')

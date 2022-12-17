@@ -64,7 +64,7 @@ QnA
     let que = req.body.getque;
     let ans = req.body.ans;
    
-      savetxt({ que: que, ans: ans }, "QnA",req.signedCookies.token);
+      savetxt({ que: que, ans: ans }, "QnA",req.cookies.token);
       res.render("QnA.ejs", {
         que: que,
         ans: null,

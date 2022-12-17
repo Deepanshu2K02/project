@@ -69,13 +69,13 @@ export const savetxt = async (files, functionid,token) => {
   
         if(!token) res.redirect('/loginpage');
         else{
-          const genEmail = jwt.verify(token,process.env.SECRET);
-          const useremail = genEmail.email;
-  
-          if(!useremail){
+          const genEmail = jwt.verify(token,"Text-Tools_secret_key_CreatedBy_Kartik_Hatwar_for_registered_users");
+          
+          if(!genEmail){
             res.redirect('/loginpage');
           }
           else{
+        const useremail = genEmail.email;
    
       if (functionid === "imgtotxt") {
         let { title, text } = files;
