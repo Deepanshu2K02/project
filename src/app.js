@@ -50,7 +50,7 @@ app.use(session({
   saveUninitialized: true,
   cookie: { secure: false }
 }))
-app.get('/',Uauth,(req,res)=>{
+app.get('/',(req,res)=>{
   try{
       res.render('index.ejs')
   }
