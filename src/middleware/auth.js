@@ -9,9 +9,7 @@ export const Uauth = async (req,res,next)=>{
 
     // console.log(req.session.token);
     const token = req.signedCookies.token;
-
     
-
     if(!token) res.redirect('/loginpage');
     else{
         res.send(req.signedCookies);

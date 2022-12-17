@@ -29,20 +29,15 @@ login_router.post("/",async (req, res) => {
    
        if(isMatch){ 
 
-        // req.session.token = token;
+        res.send(token);
 
-        res.clearCookie('token');
-        res.status(200).cookie('token',JSON.stringify(token), {
-          maxAge : 24*60*60*1000, //  24 hrs
-          signed : true,
-        })
-
-        // res.cookie('test', token, {
-        //   maxAge : 24*60*60*1000, // 
-        //   signed : false // 24 hrs
+        // res.cookie('token',token, {
+        //   maxAge : 24*60*60*1000, //  24 hrs
+        //   signed : true,
         // })
 
-         res.redirect(`/`)
+
+        //  res.redirect(`/`)
        }  
        else{
         res.render("LoginPage", {
