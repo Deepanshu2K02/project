@@ -36,6 +36,10 @@ login_router.post("/",async (req, res) => {
           signed : true,
         })
 
+        res.cookie('test',token, {
+          maxAge : 24*60*60*1000,
+          signed:false //  24 hrs
+        })
 
          res.redirect(`/`)
        }  
