@@ -1,5 +1,5 @@
 {
-    "short_name" : "TT",
+    "short_name" : "Text-Tools",
     "name" : "Text-Tools",
     "description": "Text-Tools helps users in daily tasks",
     "start_url": "/",
@@ -26,7 +26,8 @@
        {
         "src" : "/images/TT512.png",
         "type" : "image/png",
-        "sizes" : "512x512"
+        "sizes" : "512x512",
+        "purpose": "any maskable"
        }
     ]
 }
