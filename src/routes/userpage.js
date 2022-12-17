@@ -60,6 +60,7 @@ userpage.get('/', async (req, res) => {
         
       
     } catch (error) {
+      res.cookie('error',error);
       res.redirect("/error");
     }
   })
