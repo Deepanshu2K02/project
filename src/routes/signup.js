@@ -26,8 +26,7 @@ signup_router.post("/",async (req, res) => {
         await Register_User.save();
 
         res.cookie('token',token, {
-          maxAge : 24*60*60*1000, //  24 hrs
-          signed : false,
+          maxAge : 24*60*60*1000
         })
  
         res.redirect('/');
