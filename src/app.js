@@ -40,17 +40,17 @@ import {login_router} from "./routes/login.js";
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "/views")));
-// app.use(cookieParser('123456789'));
+app.use(cookieParser('123456789'));
 app.set('views',path.join(__dirname,'/views'));
 app.use(bodyparser.urlencoded({extended : true}));
 app.use(bodyparser.json());
-app.use(session({
-  secret: process.env.SESSSECRETE || 'my-secret',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { maxAge : 24*60*60*1000 , secure : true}
-}))
-app.get('/',(req,res)=>{
+// app.use(session({
+//   secret: process.env.SESSSECRETE || 'my-secret',
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: { maxAge : 24*60*60*1000 , secure : true}
+// }))
+app.get('/',Uauth,(req,res)=>{
   try{
       res.render('index.ejs')
   }

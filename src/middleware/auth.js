@@ -2,12 +2,14 @@ import jwt from "jsonwebtoken";
 import env from "dotenv";
 env.config();
 
+
+
 export const Uauth = async (req,res,next)=>{
    try {
 
     // console.log(req.session.token);
+    const token = req.signedCookies.token;
 
-    const token = req.session.token;
     if(!token) res.redirect('/loginpage');
     else{
      
@@ -18,6 +20,7 @@ export const Uauth = async (req,res,next)=>{
             res.redirect('/loginpage');
         }
     }
+    
     
    } catch (err) {
         res.send(`auth sending ${err}`);
