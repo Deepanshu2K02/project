@@ -7,7 +7,6 @@ env.config();
 export const Uauth = async (req,res,next)=>{
    try {
 
-    // console.log(req.session.token);
     const token = req.cookies.token;
     
     if(!token) res.redirect('/loginpage');
