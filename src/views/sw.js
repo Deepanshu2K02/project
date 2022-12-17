@@ -1,14 +1,17 @@
 const staticCache = "site-static";
 const dyanamicCache = "site-dyanamic";
 const assets = [
-    'manifest.json',
-    '/loginpage',
-    '/userpage',
-    '/',
-    'LoginPage.ejs',
-    'User.ejs',
-    'index.ejs'
+    '/loginpage'
 ];
+
+self.addEventListener('install',(evt)=>{
+    evt.waitUntil(
+    caches.open(staticCache).then(cache=>{
+        cache.addAll(assets);
+    })
+    );
+});
+ 
 
 self.addEventListener('activate',(evt)=>{
     evt.waitUntil(
@@ -20,24 +23,12 @@ self.addEventListener('activate',(evt)=>{
     );
 });
 
-self.addEventListener('install',(evt)=>{
-        evt.waitUntil(
-        caches.open(staticCache).then(cache=>{
-            cache.addAll(assets);
-        })
-        );
-});
-
-
 
 self.addEventListener('fetch',(evt)=>{
     evt.respondWith(
         caches.match(evt.request).then(cacheRes=>{
             return cacheRes || fetch(evt.request).then(fetchRes=>{
-                return caches.open(dyanamicCache).then(cache =>{
-                    cache.put(evt.request.url , fetchRes.clone());
-                    return fetchRes;
-                });
+                return fetchRes;
             });
         })
     )
