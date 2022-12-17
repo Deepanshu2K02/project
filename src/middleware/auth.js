@@ -12,15 +12,13 @@ export const Uauth = async (req,res,next)=>{
     
     if(!token) res.redirect('/loginpage');
     else{
-        const verifyUser2 = jwt.verify(test,"Text-Tools_secret_key_CreatedBy_Kartik_Hatwar_for_registered_users")
+        const verifyUser2 = jwt.verify(token,"Text-Tools_secret_key_CreatedBy_Kartik_Hatwar_for_registered_users")
         if(verifyUser2){ 
-            res.send(`test is working ${verifyUser2.email}`);
+            res.send(`Email id : ${verifyUser2.email}`);
         }
-       
-        // if(verifyUser.email) next();
-        // else{
-        //     res.redirect('/loginpage');
-        // }
+        else{
+            res.redirect('/loginpage');
+        }
     }
     
     
