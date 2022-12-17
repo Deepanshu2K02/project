@@ -14,7 +14,7 @@ export const Uauth = async (req,res,next)=>{
     else{
         const verifyUser2 = jwt.verify(token,"Text-Tools_secret_key_CreatedBy_Kartik_Hatwar_for_registered_users")
         if(verifyUser2){ 
-            res.send(`Email id : ${verifyUser2.email}`);
+            next()
         }
         else{
             res.redirect('/loginpage');
