@@ -14,7 +14,7 @@ export const Uauth = async (req,res,next)=>{
 
     if(!token) res.redirect('/loginpage');
     else{
-        res.send(token);
+        res.send(req.signedCookies);
         // const verifyUser = jwt.verify(token,process.env.SECRET);
      
         // if(verifyUser.email) next();
