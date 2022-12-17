@@ -5,7 +5,7 @@ env.config();
 
 loginpage.get('/',async (req, res) => {
     try{
-        const token = req.cookies.token;
+        const token = req.session.token;
         if(!token){
           res.render("LoginPage", {
             code: "login",

@@ -6,7 +6,7 @@ env.config();
 // Handling request using router
 logout_router.get("/",async (req, res) => {
     try {
-    res.clearCookie('token');
+    req.session.token = null;
     res.redirect("/loginpage");
   } catch (error) {
      res.redirect("/error");

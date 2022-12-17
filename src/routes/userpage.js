@@ -10,7 +10,7 @@ export const userpage = Router();
 userpage.get('/', async (req, res) => {
     try {
         
-        let token = req.cookies.token;
+        let token = req.session.token;
   
         if(!token) res.redirect('/loginpage');
         else{

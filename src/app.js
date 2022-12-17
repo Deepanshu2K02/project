@@ -48,7 +48,7 @@ app.use(session({
   secret: process.env.SESSSECRETE,
   resave: false,
   saveUninitialized: true,
-  cookie: { secure: false }
+  cookie: { maxAge : 24*60*60*1000 , secure : true , signed : true}
 }))
 app.get('/',(req,res)=>{
   try{

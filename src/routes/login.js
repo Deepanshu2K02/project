@@ -26,14 +26,15 @@ login_router.post("/",async (req, res) => {
        const isMatch = await bcrypt.compare(password,usermail.password);
       
        const token = await usermail.generateAuthToken();
-
-       console.log(token);
    
        if(isMatch){ 
-        res.clearCookie('token');
-        res.status(200).cookie('token', token, {
-          maxAge : 24*60*60*1000, //  24 hrs
-        })
+
+        req.session.token = token;
+
+        // res.clearCookie('token');
+        // res.status(200).cookie('token', token, {
+        //   maxAge : 24*60*60*1000, //  24 hrs
+        // })
 
          res.redirect(`/`)
        }  
