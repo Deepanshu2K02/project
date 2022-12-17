@@ -1,11 +1,11 @@
 
 const firebaseConfig = {
-    apiKey: process.env.FIREKEY,
-    authDomain: process.env.AUTHDOMAIN,
-    projectId:  process.env.PROJECTID ,
-    storageBucket:  process.env.STORAGEBUCKET ,
-    messagingSenderId:  process.env.MESSAGINGSENDERID ,
-    appId:  process.env.APPID ,
+    apiKey: "AIzaSyBR2x1LfeDAgPo2ezzOtCk9xOUcQXFsO3k",
+    authDomain: "text-tools-397da.firebaseapp.com",
+    projectId:  "text-tools-397da" ,
+    storageBucket:  "text-tools-397da.appspot.com" ,
+    messagingSenderId: "1039784491156" ,
+    appId:  "1:1039784491156:web:6154e8fb9d66844ed5dc81" ,
   };
 
 import { initializeApp } from "firebase/app";

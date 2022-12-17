@@ -23,7 +23,7 @@ QnA
         port: null,
         path: `/question-answer?question=${encodeURIComponent(que)}`,
         headers: {
-          "X-RapidAPI-Key":  process.env.API_KEY,
+          "X-RapidAPI-Key": "a9b82fb48emsh5805ff4c98752c2p138328jsn79eeb2b18429",
           "X-RapidAPI-Host": "question-answer.p.rapidapi.com",
           useQueryString: true,
         },
@@ -64,7 +64,7 @@ QnA
     let que = req.body.getque;
     let ans = req.body.ans;
    
-      savetxt({ que: que, ans: ans }, "QnA",req.cookies.token);
+      savetxt({ que: que, ans: ans }, "QnA",req.signedCookies.token);
       res.render("QnA.ejs", {
         que: que,
         ans: null,

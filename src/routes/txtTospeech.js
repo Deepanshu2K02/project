@@ -21,7 +21,7 @@ txtTospeech
       path: "/synthesize",
       headers: {
         "content-type": "application/x-www-form-urlencoded",
-        "X-RapidAPI-Key":  process.env.API_KEY,
+        "X-RapidAPI-Key": "a9b82fb48emsh5805ff4c98752c2p138328jsn79eeb2b18429",
         "X-RapidAPI-Host": "cloudlabs-text-to-speech.p.rapidapi.com",
         useQueryString: true,
       },

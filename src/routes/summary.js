@@ -21,7 +21,7 @@ summary
       path: "/summarize",
       headers: {
         "content-type": "application/json",
-        "X-RapidAPI-Key":  process.env.API_KEY,
+        "X-RapidAPI-Key": "a9b82fb48emsh5805ff4c98752c2p138328jsn79eeb2b18429",
         "X-RapidAPI-Host": "gpt-summarization.p.rapidapi.com",
         useQueryString: true,
       },
@@ -60,7 +60,7 @@ summary
       summary: summary,
     };
   
-      savetxt(file, "summary",req.cookies.token);
+      savetxt(file, "summary",req.signedCookies.token);
       res.render("summary.ejs", {
         text: null,
       });
