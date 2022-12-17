@@ -29,9 +29,6 @@ signup_router.post("/",async (req, res) => {
         res.clearCookie('token');
         res.status(200).cookie('token', token, {
           maxAge : 24*60*60*1000, //  24 hrs
-          secure: env.ENVIRONMENT === 'LIVE',
-          sameSite: env.ENVIRONMENT === 'LIVE' ? 'none' : 'lax',
-          httpOnly: true
         })
         res.redirect('/');
       }

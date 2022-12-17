@@ -6,7 +6,6 @@ export const Uauth = async (req,res,next)=>{
    try {
 
     const token = req.cookies.token;
-    console.log(token);
     if(!token) res.redirect('/loginpage');
     else{
      

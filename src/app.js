@@ -2,6 +2,7 @@ import { createRequire } from "module";
 const require = createRequire(import.meta.url);
 require("dotenv").config();
 import path from "path";
+import session from "express-session";
 import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -43,7 +44,12 @@ app.use(cookieParser());
 app.set('views',path.join(__dirname,'/views'));
 app.use(bodyparser.urlencoded({extended : true}));
 app.use(bodyparser.json());
-
+app.use(session({
+  secret: process.env.SESSSECRETE,
+  resave: false,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}))
 app.get('/',Uauth,(req,res)=>{
   try{
       res.render('index.ejs')

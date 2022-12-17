@@ -1,6 +1,6 @@
-import { createRequire } from "module";
 import validator from 'validator';
 import bcrypt from 'bcryptjs';
+import session from 'express-session';
 // import { mongoose } from "../db/db.js";
 import jwt from "jsonwebtoken";
 
@@ -43,21 +43,15 @@ const userSchema = new mongoose.Schema({
         type : String,
         required : true,
         minLength : [6,"********Password should be of minimum 8 Letters"]
-    },
-    tokens : [{
-         token : {
-            type : String,
-            required : true
-         },
-    }]
+    }
 });
 
 userSchema.methods.generateAuthToken = async function(){
     try {
         const gentoken = await jwt.sign(JSON.stringify({email :this.email}),process.env.SECRET);
-        console.log(gentoken);
-        this.tokens = this.tokens.concat( { token: gentoken });
+
         return gentoken;
+
     } catch (error) {
         console.log('i am sending error ' ,error);
         return error;
