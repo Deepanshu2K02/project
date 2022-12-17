@@ -29,16 +29,10 @@ login_router.post("/",async (req, res) => {
    
        if(isMatch){ 
 
-        // res.send(token);
 
         res.cookie('token',token, {
           maxAge : 24*60*60*1000, //  24 hrs
-          signed : true,
-        })
-
-        res.cookie('test',token, {
-          maxAge : 24*60*60*1000,
-          signed:false //  24 hrs
+          signed : false,
         })
 
          res.redirect(`/`)
