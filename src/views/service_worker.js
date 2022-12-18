@@ -1,11 +1,67 @@
+const static_cache = 'static_cache';
+
+const assets = [
+    '/',
+    './index.ejs',
+    './css/index.css',
+    './LoginPage.ejs',
+    './User.ejs',
+    './manifest.json',
+    './images/social-media.gif',
+    './js/loginform.js',
+]
+
 self.addEventListener('install', function(event) {
-    // console.log('used to register the service worker')
+    console.log('used to register the service worker')
+      event.waitUntil(
+      caches.open(static_cache)
+      .then(function(cache) {
+        cache.addAll(assets)
+      })
+      .then(self.skipWaiting())
+      )
   })
   
   self.addEventListener('fetch', function(event) {
-    // console.log('used to intercept requests so we can check for the file or data in the cache')
+
+      event.respondWith(
+      fetch(event.request)
+        .catch(() => {
+          console.log('fetching resource')
+          return caches.open(static_cache)
+            .then((cache) => {
+              return cache.match(event.request)
+            })
+        })
+    )
   })
   
   self.addEventListener('activate', function(event) {
-    // console.log('this event triggers when the service worker activates')
+      event.waitUntil(
+          caches.keys()
+            .then((keyList) => {
+              return Promise.all(keyList.map((key) => {
+                if (key !== static_cache) {
+                  return caches.delete(key)
+                }
+              }))
+            })
+            .then(() => self.clients.claim())
+        )
   })
+
+
+
+  // self.addEventListener('install',function (event) {
+  //   console.log('service worker installed')
+  
+  // })
+  
+  // self.addEventListener('fetch', function(event) {
+ 
+  // })
+  
+  // self.addEventListener('activate', function(event) {
+  //   console.log('new SW activated');
+  //   
+  // })

@@ -44,10 +44,10 @@ body::-webkit-scrollbar {
  }
 
 
-body{margin: 0; padding: 0;
+body{
+    margin: 0; padding: 0;
     background-color: var(--pri-col);
     min-height: 100vh;
- 
 }
 
 
@@ -58,36 +58,37 @@ body{margin: 0; padding: 0;
     width: 100%;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
 }
 
 
 .loginBox , .signupBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: center;
     width: 37rem;
     min-height: 56rem;
-    background: white;
-    border-radius: 1rem;
-    padding: 3.3rem;
+    border-radius: .7rem;
     box-sizing: border-box;
-    box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
-    transition: 1s ease-in-out;
 }
 
 
 .user{
     margin: 0 auto;
-    display: block;
-    font-weight: 700;
-    margin-bottom: 2.9rem;
+    margin-bottom: 0px;
     }
 
 
 h3{
-    margin: 0;
     padding: 0 0 2rem;
     color: var(--sec-col);
     text-align: center;
 }
+
+/* #signupBox h3{
+    margin-top: 2rem;
+} */
 
 
 .loginBox input,.signupBox input{
@@ -102,7 +103,7 @@ h3{
     border-bottom: 0.1rem solid #262626;
     outline: none;
     height: 4rem;
-    color: var(--blue);
+    /* color: var(--blue); */
     background: transparent;
     font-size: 2rem;
     text-transform: none;
@@ -115,7 +116,7 @@ h3{
     border-bottom: 0.1rem solid #262626;
     outline: none;
     height: 4rem;
-    color: var(--blue);
+    /* color: var(--blue); */
     background: transparent;
     font-size: 2rem;
     text-transform: none;
@@ -125,40 +126,9 @@ h3{
 
 button[type = "submit"]{
     width: 100%;
+    background-color: var(--blue);
 }
 
-.loginBox input[type="email"]:hover, .loginBox input[type="password"]:hover{
-        color: var(--sec-col); 
-}
-
-.signupBox input[type="email"]:hover,.signupBox input[type="text"]:hover, .signupBox input[type="password"]:hover{
-        color: var(--sec-col); 
-}
-  
-    
-.loginBox input[type="email"]:focus, .loginBox input[type="password"]:focus{
-    text-transform: none;
-    border-bottom:0.1rem solid var(--blue);
-    color: var(--sec-col); 
-}
-
-.signupBox input[type="email"]:focus,.signupBox input[type="text"]:focus, .signupBox input[type="password"]:focus{
-    text-transform: none;
-    border-bottom: 0.1rem solid var(--blue);
-    color: var(--sec-col); 
-
-}
-
-
-.inputBox{position: relative}
-
-
-.inputBox span{
-    position: absolute;  top: 1rem;
-    color: #262626
-}
-
- 
 
 .loginBox a{
     color: var(--blue); font-size: 1rem;
@@ -172,9 +142,7 @@ button[type = "submit"]{
     text-align: center;  display: block
 }
 
-a:hover{
-    color: #00d5ff
-}
+
 
 #tosignuppage{
     border: none;  outline: none;
@@ -218,3 +186,11 @@ footer{
     bottom: 0;
 }
 
+@media screen and (min-width : 600px){
+    .loginBox , .signupBox{
+        background: white;
+        margin-top: 2rem;
+        padding: 3.3rem;
+        box-shadow: 0 5px 10px rgb(0 0 0 / 20%);
+    }
+}
