@@ -1,37 +1,76 @@
 <link rel="stylesheet" href="../css/navbar.css">
 
-  <nav class="navbar navbar-expand-lg" id="navbar">
-    <div class="container-fluid row">
-      <a class="navbar-brand col-4 w-25" href="/">
-        <img src="../images/AnimatedLogo.gif" alt="Text Tools" id="Logo-img">
-      </a>
-      <button class="navbar-toggler col-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+  <nav id="nav-bar" class="overlay">
 
-      <div class="collapse navbar-collapse col-6" id="navbarSupportedContent">
+    <a href="#" class="icon"><img src="../images/AnimatedLogo.gif" alt="Text-Tools"></a>
 
-        <ul class="container navbar-nav row-12 p-auto justify-content-centre">
-
-          <span class="col-lg-3 w-25 m-auto mb-1 text-center"> <a href="/#services" class="btn btn-outline-light" onclick="changetab()">services</a> </span> 
-          <span class="col-lg-3 w-25 m-auto mb-1 text-center"> <a href="/#about" class="btn btn-outline-light"  onclick="changetab()">about</a> </span>
-          <span class="col-lg-3 w-25 m-auto mb-1 text-center"> <a href="/userpage" class="btn btn-outline-light" id="userpagelink" onclick="changetab()">User Account</a> </span>
-          <span class="col-lg-3 w-25 m-auto mb-1 text-center"> <a href="/logout" class="btn btn-outline-danger"  onclick="changetab()">Log Out</a> </span>
-            
-          </ul>
-          
-      </div>
+    <div class="overlay-content">
+      <a href="/#services"><i class="fa-solid fa-laptop"></i>Services</a>
+      <a href="/#about"><i class="fa-solid fa-book"></i>About</a>
+      <a href="/userpage"><i class="fa-solid fa-user"></i>User</a>
+      <a href="/logout" class="btn btn-outline-danger"><i class="fa-solid fa-right-to-bracket"></i>Logout</a>
     </div>
+
   </nav>
 
+  <div class="nav-mob"> <button id="nav-btn" onclick="openNav()">☰</button> </div>
+
+
 <script>
+
    
-   function changetab(){
-  document.querySelectorAll('#navbar ul a').forEach(function(item){
-    item.classList.remove('active');
+ const openNav = ()=>{
+  if(screen.width <= '450'){
+  document.querySelector('.overlay-content').style.opacity = '100%';
+  document.querySelector('.nav-mob').style.opacity = '0%';
+  document.querySelector("#nav-bar").style.width = '100%';
+  document.querySelector('body').style.overflowY = 'hidden';
+  }
+}
+
+const closeNav = ()=>{
+  if(screen.width <= '450'){
+  document.querySelector('body').style.overflowY = 'visible';
+  document.querySelector('.overlay-content').style.opacity = '0%';
+  document.querySelector('.nav-mob').style.opacity = '70%';
+  document.querySelector('#nav-bar').style.width = '0%';
+}
+ }
+
+  const links = document.querySelectorAll('.overlay-content a');
+  for(let i = 0 ; i < links.length ; i++){
+    links[i].addEventListener('click',()=>{
+      closeNav();
+    })
+  }
+
+  document.addEventListener('mouseup',(e)=>{
+    let space = document.querySelector('.overlay-content');
+    if (!space.contains(e.target) && screen.width <= '450') {
+        closeNav();
+    }
   })
-  event.target.classList.add('active');
-   }
+
+
+  
+var prevScrollpos = window.pageYOffset;
+
+window.addEventListener('scroll',()=>{
+  console.log('triggered')
+}) 
+
+  // if(screen.width > '450'){
+  //   var currentScrollPos = window.pageYOffset;
+  // if (prevScrollpos > currentScrollPos) {
+  //   document.getElementById("nav-bar").style.top = "0";
+  // } else {
+  //   document.getElementById("nav-bar").style.top = "-5rem";
+  // }
+  // prevScrollpos = currentScrollPos;
+  // }
+  
+
+
 
 </script>
     
