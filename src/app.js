@@ -1,30 +1,25 @@
-import { createRequire } from "module";
-const require = createRequire(import.meta.url);
-require("dotenv").config();
+import { config } from "dotenv";
 import path from "path";
-import session from "express-session";
 import { fileURLToPath } from "url";
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const express = require("express");
-const cookieParser = require('cookie-parser')
-const bodyparser = require("body-parser");
-const app = express();
-
 import mongoose from "mongoose";
 
-mongoose.set('strictQuery', false);
-//Set up default mongoose connection
+config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+import express from 'express';
+import cookieParser from "cookie-parser";
+import bodyparser from "body-parser";
+const app = express();
 
+
+mongoose.set('strictQuery', false);
 const DB = "mongodb+srv://kartikhatwar98:9371865060k@cluster0.w3714lm.mongodb.net/Text-Tools?retryWrites=true&w=majority";
 
 mongoose.connect(DB, { useNewUrlParser: true }).then(()=>{
-    // console.log('Connected');
 })
 
 
 
-// import { mongoose } from "./db/db.js";
 import { Uauth } from "./middleware/auth.js";
 import { logout_router } from "./routes/logout.js";
 import { imgtotxt } from "./routes/imgtotxt.js";
@@ -40,8 +35,8 @@ import {login_router} from "./routes/login.js";
 
 app.set("view engine", "ejs");
 app.use(express.static(path.join(__dirname, "/views")));
-app.use(cookieParser());
 app.set('views',path.join(__dirname,'/views'));
+app.use(cookieParser());
 app.use(bodyparser.urlencoded({extended : true}));
 app.use(bodyparser.json());
 

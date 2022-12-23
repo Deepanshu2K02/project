@@ -11,37 +11,11 @@ html{
     animation: comeon .5s;
 }
 
-
 :root{
     --pri-col : #dfe6e9;
     --sec-col : #282D30;
     --green : #04C383;
     --blue : #0086D6;
-}
-
-#userpage .a0{
-    transition: 2s all;
-}
-
-#userpage .a1{
-    transition: 2s all;
-}
-
-#userpage .a2{
-    transition: 2s all;
-}
-
-#userpage .a3{
-    transition: 2s all;
-}
-
-@keyframes comeon {
-    0%{
-        opacity: 0;
-    }
-    100%{
-        opacity: 1;
-    }
 }
 
 body::-webkit-scrollbar {
@@ -55,15 +29,8 @@ body::-webkit-scrollbar {
 
  #userpage a{
     text-decoration: none;
-    transition: .6s all;
-    width: 27%;
   }
 
-  #userpage a:hover{
-    box-shadow: 0 5px 10px #a1b2b9; 
-    border: 0.5px solid black;
-    width: 50%;
-  }
 
 #userpage.container-main{
     min-height: 100vh;
@@ -93,32 +60,55 @@ footer{
     border-radius: 1rem;
 }
 
-#userpage img{
+/* #userpage img{
     transition: 1s all;
 }
 
 #userpage img:hover{
     transform: rotateY(360deg);
+} */
+
+#userpage .d-flex{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+
+#userpage .d-flex a{
+  margin-right: 1rem;
+  width: 45%;
+}
+
+.data-container{
+  width: 100%;
+  padding: 2%;
+}
+
+.data-container .data-card{
+ width: 100%;
+ display: flex;
+ flex-direction: row;
+ flex-wrap: wrap;
+ align-items: center;
+ justify-content: flex-start;
+}
+
+.data-card a{
+  display: flex;
+  text-decoration: none;
+  color: var(--sec-col);
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.item-card img{
+  width: 15rem;
 }
 
 
-/* Extra small devices (phones, 600px and down) */
-
- @media only screen and (max-width: 600px) {
-    html{
-      font-size: 70%;
-    }
+@media (max-width:500px){
+  html{
+    font-size: 70%;
   }
-  /* Small devices (portrait tablets and large phones, 600px and up) */
-  @media only screen and (min-width: 600px) {
-    html{
-      font-size: 80%;
-    }
-  }
-  /* Large devices (laptops/desktops, 992px and up) */
-  @media only screen and (min-width: 992px) {
-    html{
-      font-size: 100%;
-    }
-  }
-  
+}

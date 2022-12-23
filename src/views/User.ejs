@@ -25,8 +25,8 @@
                   <h5 class="my-3"><%=displayName %></h5>
 
                   <div class="d-flex justify-content-center mb-2">
-                    <a href="/#services" class="btn btn-primary ms-1">Services</a>
-                    <a href="/logout" class="btn btn-outline-danger ms-1">Log Out</a>
+                    <a href="/#services" class="btn btn-primary">Services</a>
+                    <a href="/logout" class="btn btn-outline-danger">Log Out</a>
                   </div>
                 </div>
               </div>
@@ -76,21 +76,21 @@
 
     <% if(imgtotxturls.length != 0){ %> 
 
-    <div class="imgtotxt-slider a0">
+    <div class="imgtotxt-slider">
 
         <div class="title container my-3">Your Image Extracted Text Files :</div>
 
-        <div class="container  my-3 overflow-auto">
-                <div class="row my-2">
+        <div class="data-container">
+
+            <div class="data-card">
            <% for(let i = 0 ; i < imgtotxturls.length ; i++){ %> 
-               <div class="item-card col-3 my-4 g-2">
-                <a href="<%=imgtotxturls[i].url%>" class="card-title w-75 text-center justify-content-center">
+               <div class="item-card">
+                <a href="<%=imgtotxturls[i].url%>" class="data-card-img">
+                  <img src="./images/book.png" alt="">
                   <%=imgtotxturls[i].name%> 
-                  </a>
+                </a>
                 </div> 
            <%}%> 
- 
-
           </div>
         </div>
     </div>
@@ -98,15 +98,16 @@
 
     <% if(summaryurls.length != 0){ %> 
 
-      <div class="imgtotxt-slider a1">
+      <div class="imgtotxt-slider">
   
           <div class="title container my-3">Your Saved Summaries :</div>
   
-          <div class="container  my-3 overflow-auto">
-                  <div class="row my-2">
+          <div class="data-container">
+                  <div class="data-card">
              <% for(let i = 0 ; i < summaryurls.length ; i++){ %> 
-                 <div class="item-card col-3 my-4 g-2">
-                  <a href="<%=summaryurls[i].url%>" class="card-title w-75 text-center justify-content-center">
+                 <div class="item-card">
+                  <a href="<%=summaryurls[i].url%>" class="data-card-img">
+                    <img src="./images/book.png" alt="">
                     <%=summaryurls[i].name%> 
                     </a>
                   </div> 
@@ -120,15 +121,16 @@
 
       <% if(translatedurls.length != 0){ %> 
 
-        <div class="imgtotxt-slider a2">
+        <div class="imgtotxt-slider">
     
             <div class="title container my-3">Your Saved Translations :</div>
     
-            <div class="container  my-3 overflow-auto">
-                    <div class="row my-2">
+            <div class="data-container">
+                    <div class="data-card">
                <% for(let i = 0 ; i < translatedurls.length ; i++){ %> 
-                   <div class="item-card col-3 my-4 g-1">
-                    <a href="<%=translatedurls[i].url%>" class="card-title w-75 text-center justify-content-center">
+                   <div class="item-card">
+                    <a href="<%=translatedurls[i].url%>" class="data-card-img">
+                      <img src="./images/book.png" alt="">
                       <%=translatedurls[i].name%> 
                       </a>
                     </div> 
@@ -142,15 +144,16 @@
 
         <% if(QnAurls.length != 0){ %> 
 
-          <div class="imgtotxt-slider a3">
+          <div class="imgtotxt-slider">
       
               <div class="title container my-3">Your Saved Answers :</div>
       
-              <div class="container  my-3 ">
-                <div class="row my-2">
+              <div class="data-container ">
+                <div class="data-card">
                     <% for(let i = 0 ; i < QnAurls.length ; i++){ %> 
-                           <div class="item-card col-3 my-4 g-1 ">
-                                <a href="<%=QnAurls[i].url%>" class="card-title w-75 text-center justify-content-center">
+                           <div class="item-card">
+                                <a href="<%=QnAurls[i].url%>" class="data-card-img">
+                                  <img src="./images/book.png" alt="">
                                 <%=QnAurls[i].name%> 
                                 </a>
                            </div> 
