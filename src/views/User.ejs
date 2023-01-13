@@ -187,14 +187,11 @@
 
 <script>
 
-  function changetab(){
-  document.querySelectorAll('#navbar ul a').forEach(function(item){
+  document.querySelectorAll('.overlay-content a').forEach(function(item){
     item.classList.remove('active');
   })
-  document.querySelector('#userpagelink').classList.add('active');
-   }
+  document.querySelector('.fa-user').classList.add('active');
 
-   changetab();
 </script>
 </body>
 </html>
